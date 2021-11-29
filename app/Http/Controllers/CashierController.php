@@ -16,6 +16,19 @@ class CashierController extends Controller
         return view('cashier');
     }
 
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewTodaySale($id)
+    {
+        return view('cashier.cashier_sales');
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *

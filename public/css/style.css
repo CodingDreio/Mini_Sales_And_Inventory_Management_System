@@ -77,8 +77,9 @@ body {
 }
 
 .primary-button {
-  width: 7.5rem;
-  height: 2.5rem;
+  width: 100%;
+  height: auto;
+  padding: 0.5rem 0 0.5rem;
   background-color: #1F4068;
   color: white;
   border-radius: 0.75rem;
@@ -87,9 +88,20 @@ body {
 }
 
 .secondary-button {
-  width: 7.5rem;
-  height: 2.5rem;
+  width: 100%;
+  height: auto;
+  padding: 0.5rem 0 0.5rem;
   background-color: #991f1f;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+}
+
+.tertiary-button {
+  height: auto;
+  padding: 0.5rem 0 0.5rem;
+  background-color: #32502E;
   color: white;
   border-radius: 0.75rem;
   border: none;
@@ -98,6 +110,26 @@ body {
 
 .card-view {
   width: 18rem;
+}
+
+.log-in-log {
+  -webkit-box-shadow: 0 2px 10px #0000001a;
+          box-shadow: 0 2px 10px #0000001a;
+}
+
+.log-in-form {
+  background-color: white;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0 2px 10px #0000001a;
+          box-shadow: 0 2px 10px #0000001a;
+}
+
+.remember-me {
+  font-size: 12px;
+}
+
+.log-in-background {
+  background-image: url(../images/bg-green.jpg);
 }
 
 @media (max-width: 952px) {

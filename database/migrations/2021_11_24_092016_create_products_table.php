@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id('product_id');
+            $table->string('code',30)->nullable();
             $table->integer('category_id')
                     ->foreignId('category_id')
                     ->constrained('categories')

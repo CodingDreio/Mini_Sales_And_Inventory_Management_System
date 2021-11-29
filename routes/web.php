@@ -24,6 +24,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/cashier', [CashierController::class, 'index'])->name('cashier');
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
+
+// Cashier Routes
+Route::get('/cashier', [CashierController::class, 'index'])->name('cashier');
+Route::get('/cashier/sales/{id}',[CashierController::class, 'viewTodaySale'])->name('cashier_sales');
+
