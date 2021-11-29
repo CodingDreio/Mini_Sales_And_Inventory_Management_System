@@ -1,0 +1,57 @@
+
+.primary-btn {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background-color: #1F4068;
+    color: white;
+    border-radius: 0.75rem;
+    border: none;
+    text-decoration: none;
+  }
+   
+.secondary-btn {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background-color: #991f1f;
+    color: white;
+    border-radius: 0.75rem;
+    border: none;
+    text-decoration: none;
+  }
+
+  
+.primary-btn:hover {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background-color: #1F4068;
+    color: white;
+    border-radius: 0.75rem;
+    border: none;
+    text-decoration: none;
+  }
+   
+.secondary-btn:hover {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background-color: #991f1f;
+    color: white;
+    border-radius: 0.75rem;
+    border: none;
+    text-decoration: none;
+  }
+  
+.tertiary-btn {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background-color: #32502E;
+    color: white;
+    border-radius: 0.75rem;
+    border: none;
+    text-decoration: none;
+  } 
+
+.tertiary-btn:hover{
+      padding: 0.5rem 1rem 0.5rem 1rem;
+      background-color: #32502E;
+      color: white;
+      border-radius: 0.75rem;
+      border: none;
+      text-decoration: none;
+    }
+
+

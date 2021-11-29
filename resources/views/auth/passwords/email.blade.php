@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header pt-3">
-                    
+                    <a class="btn btn-primary px-5 mb-2 float-end" href="{{ route('login') }}">Login</a>
                     <h5>Reset Password</h5>
                 </div>
 

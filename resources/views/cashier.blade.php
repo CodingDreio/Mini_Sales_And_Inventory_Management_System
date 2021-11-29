@@ -5,7 +5,7 @@
             <div class="col-sm-12 col-md-7 col-lg-7">
                 <div class="card">
                     <div class="card-header pt-3">
-                        <div class="float-end me-3">
+                        <div class="float-end me-3 mb-3">
                             <h5>Total Amount:</h5>
                             <h2 class="ms-5"> P 568.00</h2>
                         </div>
@@ -53,8 +53,8 @@
                         <br>
                         <hr>
                         <div>
-                            <button class="btn btn-danger btn-sm float-start">Cancel</button>
-                            <button class="btn btn-primary btn-sm float-end">Purchace</button>
+                            <button class="btn secondary-btn btn-sm float-start">Cancel</button>
+                            <button class="btn primary-btn btn-sm float-end">Purchace</button>
                         </div>  
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary btn-sm">New Purchase</button>
+                            <button class="btn primary-btn btn-sm">New Purchase</button>
                         </div>
                         <hr>
                         <div>
@@ -80,17 +80,20 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Discount:</span>
                                     <input type="number" class="form-control" aria-label="Quantity" aria-describedby="basic-addon1">
-                                    <span class="input-group-text" id="basic-addon1">Type:</span>
+                                    <span class="input-group-text" id="basic-addon1">Discount Type:</span>
                                     <select name="" id="" class="form-control">
                                         <option value="0">&#8369;</option>
                                         <option value="1">&#37;</option>
                                     </select>
                                 </div>
-                                <div class="input-group mb-3">
-                                    {{-- <span class="input-group-text" id="basic-addon1">Discount:</span>
-                                    <input type="number" class="form-control" aria-label="Quantity" aria-describedby="basic-addon1"> --}}
+                                <button class="btn tertiary-btn btn-sm float-start">Clear</button>
+                                <button type="submit" class="btn primary-btn btn-sm float-end">Add</button>
+                                {{-- <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Discount:</span>
+                                    <input type="number" class="form-control" aria-label="Quantity" aria-describedby="basic-addon1">
+                                    <button class="btn btn-secondary btn-sm">Clear</button>
                                     <button class="btn btn-primary btn-sm">Add</button>
-                                </div>
+                                </div> --}}
                             </form>
                         </div>
                     </div>

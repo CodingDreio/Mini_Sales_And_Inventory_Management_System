@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price',6,2);
             $table->integer('quantity');
             $table->string('product_description');
+            $table->integer('vat')->default(0);
             $table->integer('supplier_id');
             $table->timestamps();
         });
