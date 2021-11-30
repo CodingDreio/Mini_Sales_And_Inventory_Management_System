@@ -7,6 +7,14 @@
     border: none;
     text-decoration: none;
   }
+.primary-btn-100 {
+    padding: 0.5rem 5rem 0.5rem 5rem;
+    background-color: #1F4068;
+    color: white;
+    border-radius: 0.75rem;
+    border: none;
+    text-decoration: none;
+  }
    
 .secondary-btn {
     padding: 0.5rem 1rem 0.5rem 1rem;
@@ -17,7 +25,16 @@
     text-decoration: none;
   }
 
-  
+.primary-btn-100:hover{
+  padding: 0.5rem 5rem 0.5rem 5rem;
+  background-color: #285183;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .primary-btn:hover {
     padding: 0.5rem 1rem 0.5rem 1rem;
     background-color: #1F4068;
@@ -55,3 +72,17 @@
     }
 
 
+.form-display-none{
+    display: none;
+}
+
+.home-logo{
+  height: 100%;
+  width: auto;
+  margin: auto;
+}
+
+.cashier-img{
+  height: 35%;
+  width: auto;
+}

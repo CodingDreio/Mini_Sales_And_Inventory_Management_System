@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name',30);
             $table->string('last_name',30);
             $table->integer('role')->comment('[1] - Admin, [2] - Cashier, [3] - Inventory');
+            $table->string('photo',50)->default('default.png');
             $table->string('street',30);
             $table->string('city',30);
             $table->string('province',30);

@@ -1,6 +1,52 @@
 @extends('layouts.cashier_layout')
 @section('content')
     <div class="container">
+        <div class="vh-75 d-flex align-items-center">
+            <div class="container my-5 justify-content-center align-items-center h-auto">
+                <div class="row align-items-center text-center">
+                    <div class="col-md-6">
+                        <img src="{{ asset('images/prodigy_sales_wg.svg') }}" class="home-logo p-5">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                        <hr>
+                        <a class="primary-btn-100 btn-lg">
+                            <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;Make New Purchase
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{--         
         <div class="row">
             <div class="col-sm-12 col-md-7 col-lg-7">
                 <div class="card">
@@ -60,13 +106,15 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-5 col-lg-5">
-                <div class="card">
+                <div class="card pb-3">
                     <div class="card-body">
                         <div class="d-flex justify-content-center">
-                            <button class="btn primary-btn btn-sm">New Purchase</button>
+                            <div id="purchaseBtn">
+                                <button class="btn primary-btn btn-sm"  onclick="showOrderForm()">New Purchase</button>
+                            </div>
                         </div>
                         <hr>
-                        <div>
+                        <div id="purchaseForm" class="form-display-none">
                             <h5>Add orders</h5>
                             <form action="" method="post">
                                 <div class="input-group mb-3">
@@ -88,12 +136,6 @@
                                 </div>
                                 <button class="btn tertiary-btn btn-sm float-start">Clear</button>
                                 <button type="submit" class="btn primary-btn btn-sm float-end">Add</button>
-                                {{-- <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Discount:</span>
-                                    <input type="number" class="form-control" aria-label="Quantity" aria-describedby="basic-addon1">
-                                    <button class="btn btn-secondary btn-sm">Clear</button>
-                                    <button class="btn btn-primary btn-sm">Add</button>
-                                </div> --}}
                             </form>
                         </div>
                     </div>
@@ -101,4 +143,16 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        function showOrderForm() {
+            var x = document.getElementById("purchaseForm");
+            var y = document.getElementById("purchaseBtn");
+
+            x.style.display = "block";
+            y.style.display = "none"
+
+        }
+    </script> --}}
 @endsection

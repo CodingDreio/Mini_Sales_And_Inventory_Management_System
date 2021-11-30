@@ -20,7 +20,8 @@ class CreateSalesReportsTable extends Migration
             $table->decimal('total_price', 8, 2);
             $table->integer('cash');
             $table->integer('change');
-            $table->integer('vat_amount')->default(0)->comment('Percent');
+            $table->integer('vatable_sale')->default(0)->comment('total price / 1.12');
+            $table->integer('vat_amount')->default(0)->comment('vatable sale x 12%');
             $table->timestamps();
         });
     }
