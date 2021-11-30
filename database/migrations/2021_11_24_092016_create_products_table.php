@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price',6,2);
             $table->integer('quantity');
             $table->string('product_description')->nullable();
+            $table->decimal('photo')->default('prod_default.png');
             $table->integer('vat')->default(0)->comment('[1] - Applicable [0] - Not Applicable');
             $table->integer('supplier_id')->nullable();
             $table->timestamps();
