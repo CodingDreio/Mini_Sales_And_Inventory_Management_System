@@ -22,7 +22,6 @@ class User extends Authenticatable
         'last_name',
         'role',
         'street',
-        'photo',
         'city',
         'province',
         'zip_code',

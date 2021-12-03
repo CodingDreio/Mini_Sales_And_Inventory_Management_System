@@ -15,7 +15,7 @@ class CashierController extends Controller
     {
         return view('cashier');
     }
-  
+ 
     
     /**
      * Display a listing of the resource.
