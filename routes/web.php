@@ -31,3 +31,6 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 // Cashier Routes
 Route::get('/cashier', [CashierController::class, 'index'])->name('cashier');
 Route::get('/cashier/sales/{id}',[CashierController::class, 'viewTodaySale'])->name('cashier_sales');
+
+//Inventory Routes
+Route::get('/inventory/product/create', [InventoryController::class, 'create'])->name('inventory_create');
