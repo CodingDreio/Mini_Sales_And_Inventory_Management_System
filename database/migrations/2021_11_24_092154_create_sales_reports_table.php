@@ -15,14 +15,19 @@ class CreateSalesReportsTable extends Migration
     {
         Schema::create('sales_reports', function (Blueprint $table) {
             $table->id('sales_report_id');
-            $table->integer('emp_id')->foreignId('emp_id')->constrained('employees')->onUpdate('cascade');
-            $table->integer('quantity');
-            $table->decimal('total_price', 8, 2);
-            $table->integer('cash');
-            $table->integer('change');
-            $table->integer('vatable_sale')->default(0)->comment('total price / 1.12');
-            $table->integer('vat_amount')->default(0)->comment('vatable sale x 12%');
+            $table->unsignedBigInteger('emp_id');
+            $table->string('sales_invoice_no');
+            $table->decimal('total_price', 8, 2)->default(0.00);
+            $table->integer('cash')->nullable();
+            $table->integer('change')->nullable();
+            $table->integer('vatable_sale')->default(0.00)->comment('total price / 1.12')->nullable();
+            $table->integer('vat_amount')->default(0.00)->comment('vatable sale x 12%')->nullable();
+            $table->integer('status')->default(0)->comment('[0]-Pending [1]-Completed');
             $table->timestamps();
+            $table->foreign('emp_id')
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
         });
     }
  

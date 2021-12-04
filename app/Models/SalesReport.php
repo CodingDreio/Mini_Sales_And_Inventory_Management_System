@@ -12,8 +12,13 @@ class SalesReport extends Model
     
     protected $fillable = [
         'emp_id',
-        'quantity',
+        'sales_invoice_no',
         'total_price',
-        'date',
+        'cash',
+        'change',
+        'vatable_sale',
+        'vat_amount',
+        'created_at',
+        'updated_at',
     ]; 
 }

@@ -1,29 +1,29 @@
 
 .primary-btn {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    background-color: #1F4068;
-    color: white;
-    border-radius: 0.75rem;
-    border: none;
-    text-decoration: none;
-  }
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: #1F4068;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+}
 .primary-btn-100 {
-    padding: 0.5rem 5rem 0.5rem 5rem;
-    background-color: #1F4068;
-    color: white;
-    border-radius: 0.75rem;
-    border: none;
-    text-decoration: none;
-  }
+  padding: 0.5rem 5rem 0.5rem 5rem;
+  background-color: #1F4068;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+}
    
 .secondary-btn {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    background-color: #991f1f;
-    color: white;
-    border-radius: 0.75rem;
-    border: none;
-    text-decoration: none;
-  }
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: #991f1f;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+}
 
 .primary-btn-100:hover{
   padding: 0.5rem 5rem 0.5rem 5rem;
@@ -36,43 +36,63 @@
 }
 
 .primary-btn:hover {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    background-color: #1F4068;
-    color: white;
-    border-radius: 0.75rem;
-    border: none;
-    text-decoration: none;
-  }
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: #1F4068;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+}
    
 .secondary-btn:hover {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    background-color: #991f1f;
-    color: white;
-    border-radius: 0.75rem;
-    border: none;
-    text-decoration: none;
-  }
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: #991f1f;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+}
   
 .tertiary-btn {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    background-color: #32502E;
-    color: white;
-    border-radius: 0.75rem;
-    border: none;
-    text-decoration: none;
-  } 
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: #32502E;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+} 
 
 .tertiary-btn:hover{
-      padding: 0.5rem 1rem 0.5rem 1rem;
-      background-color: #32502E;
-      color: white;
-      border-radius: 0.75rem;
-      border: none;
-      text-decoration: none;
-    }
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: #32502E;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+}
 
 
-.form-display-none{
+.tbl-btn {
+  /* padding: 0.5rem 1rem 0.5rem 1rem; */
+  background-color: #991f1f;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+}
+
+.tbl-btn:hover{
+  /* padding: 0.5rem 5rem 0.5rem 5rem; */
+  background-color: #cc2c2c;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.display-none{
     display: none;
 }
 
@@ -85,4 +105,43 @@
 .cashier-img{
   height: 35%;
   width: auto;
+}
+
+.cashier-dash-opt{
+  width:75%;
+  margin:auto;
+}
+
+.table-data{
+  vertical-align: middle;
+  align-items: center;
+}
+
+.tbl-cell{
+  display: table-cell;
+}
+
+.tbl-container{
+    display: table; /* Make the container element behave like a table */
+    width: 100%; /* Set full-width to expand the whole page */
+}
+
+.col-height{
+  height: 550px;
+}
+
+.card-height{
+  height: 100%;
+}
+
+.cashier-opt-img{
+  height: auto;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .cashier-opt-img{
+    height: auto;
+    width: 50%;
+  }
 }

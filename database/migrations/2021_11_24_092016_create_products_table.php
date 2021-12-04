@@ -16,19 +16,19 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id('product_id');
             $table->string('code',30)->unique()->nullable();
-            $table->integer('category_id')
-                    ->foreignId('category_id')
-                    ->constrained('categories')
-                    ->onUpdate('cascade')
-                    ->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('product_name',30);
-            $table->decimal('price',6,2);
+            $table->decimal('price',11,2);
             $table->integer('quantity');
             $table->string('product_description')->nullable();
-            $table->decimal('photo')->default('prod_default.png');
+            $table->string('photo')->default('prod_default.png');
             $table->integer('vat')->default(0)->comment('[1] - Applicable [0] - Not Applicable');
             $table->integer('supplier_id')->nullable();
             $table->timestamps();
+            $table->foreign('category_id')
+                ->references('category_id')->on('categories')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
         });
     }
 

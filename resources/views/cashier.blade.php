@@ -1,25 +1,51 @@
 @extends('layouts.cashier_layout')
 @section('content')
-    <div class="container">
-        <div class="vh-75 d-flex align-items-center">
-            <div class="container my-5 justify-content-center align-items-center h-auto">
-                <div class="row align-items-center text-center">
-                    <div class="col-md-6">
-                        <img src="{{ asset('images/prodigy_sales_wg.svg') }}" class="home-logo p-5">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                            </div>
+    <div class="">
+        <div class="container">
+            <div class="vh-75 d-flex align-items-center">
+                <div class="container my-5 justify-content-center align-items-center h-auto">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <img src="{{ asset('images/prodigy_sales_wg.svg') }}" class="home-logo p-5">
                         </div>
-                        <hr>
-                        <a class="primary-btn-100 btn-lg">
-                            <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;Make New Purchase
-                        </a>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="{{ route('cashierNew',['si'=>0]) }}"  style="text-decoration: none;">
+                                        <div class="row">
+                                            <div class="col-md-4 text-center">
+                                                <img class="cashier-opt-img" src="{{ asset('images/cart.png') }}" alt="Cart">
+                                            </div>
+                                            <div class="col-md-8 text-center">
+                                                <h3 class="text-success">Make New Purchase</h3>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="" style="text-decoration: none;">
+                                        <div class="row">
+                                            <div class="col-md-4 text-center">
+                                                <img class="cashier-opt-img" src="{{ asset('images/sale.png') }}" alt="Cart">
+                                            </div>
+                                            <div class="col-md-8 text-center">
+                                                <h3 class="text-success">View Sales</h3>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>   
+            </div>  
+        </div>
+    </div>
+     
 
 
 

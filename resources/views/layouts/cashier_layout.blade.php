@@ -27,8 +27,11 @@
         <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 
     </head>
-
-    <body>
+    @if (request()->routeIs('cashier'))
+        <body  class="log-in-background">
+    @elseif (request()->routeIs('cashierNew'))
+        <body>
+    @endif
         
         {{-- =================================================================== --}}
         {{-- Navigation --}}
@@ -40,9 +43,14 @@
             </label>
             <label class="logo"><img src="{{ asset('images/prodigy_sales_white.svg') }}" class="prodigy-sales-icon">Prodigy Sales</label>
             <ul>
-                <li><a href="{{ route('cashier') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
-                <li><a href="{{ route('cashier_sales', ['id' => 2]) }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Sales</a></li>
-                <li style="border-right: 1px solid white;"></li>
+                @if (request()->routeIs('cashierNew'))
+                    {{-- <li><a href="{{ route('cashier') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
+                    <li style="border-right: 1px solid white;"></li> --}}
+                @elseif (request()->routeIs('cashier_sales'))
+                    <li><a href="{{ route('cashier') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
+                    <li><a href="{{ route('cashier_sales', ['id' => 2]) }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Profile</a></li>
+                    <li style="border-right: 1px solid white;"></li>
+                @endif
                 <li>
                     <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();
