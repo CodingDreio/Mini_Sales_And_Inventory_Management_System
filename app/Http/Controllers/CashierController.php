@@ -232,6 +232,7 @@ class CashierController extends Controller
 
 
 
+ 
     
     /**
      * Display a listing of the resource.
