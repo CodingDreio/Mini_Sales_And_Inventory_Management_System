@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->string('product_name',30);
             $table->decimal('price',11,2);
             $table->integer('quantity');
-            $table->string('product_description',255)->nullable();
+            $table->text('product_description')->nullable();
             $table->string('photo')->default('images/asus-rog.jpg');
             $table->integer('vat')->default(0)->comment('[1] - Applicable [0] - Not Applicable');
             $table->integer('supplier_id')->nullable();

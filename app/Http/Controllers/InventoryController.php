@@ -57,9 +57,10 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit($id)
     {
-        return view('inventory.inventory_edit', ['product' => $id]);
+        $product = DB::select('select * from products where product_id = ?',[$id]);
+        return view('inventory.inventory_edit', ['product' => $product[0]]);
     }
 
     /**
