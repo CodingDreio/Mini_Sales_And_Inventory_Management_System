@@ -12,7 +12,31 @@
             <button type="button" class="search-button px-4">search</button>
         </div>
         <div class="product-list">
-            <div class="product-row p-2 mb-1">
+            <?php $__currentLoopData = $product; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prod): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="product-row p-2 mb-1">
+                    <div class="d-flex justify-content-around align-items-center">
+                        <img src="<?php echo e($prod -> photo); ?>" class="product-pic rounded-circle me-3">
+                        <div class="product-name-price">
+                            <p class="product-name"><?php echo e($prod -> product_name); ?></p>
+                            <p class="product-price">P<?php echo e($prod -> price); ?></p>
+                            <p class="product-quantity">Stock: <?php echo e($prod -> quantity); ?></p>
+                        </div>
+                        <div class="product-description me-3">
+                        <?php echo e($prod -> product_description); ?>
+
+                        </div>
+                        <img src="images/ellipsis-circle-svgrepo-com.svg" class="ellipsis-icon" onclick="showCRUD()">
+                        <div class="product-checkbox"> 
+                            <input class="form-check-input" type="checkbox">
+                        </div>
+                    </div>
+                    <div class="crud-div mt-2" id="display-crud">
+                        <button type="button" class="secondary-button px-3 ms-1">Delete</button>
+                        <button type="button" class="primary-button px-3 ms-1">Update</button>
+                    </div>
+                </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <!-- <div class="product-row p-2 mb-1">
                 <div class="d-flex justify-content-around align-items-center">
                     <img src="images/asus-rog.jpg" class="product-pic rounded-circle me-3">
                     <div class="product-name-price">
@@ -32,22 +56,7 @@
                     <button type="button" class="secondary-button px-3 ms-1">Delete</button>
                     <button type="button" class="primary-button px-3 ms-1">Update</button>
                 </div>
-            </div>
-            <div class="product-row p-2 mb-1 d-flex justify-content-around align-items-center">
-                <img src="images/asus-rog.jpg" class="product-pic rounded-circle me-3">
-                <div class="product-name-price">
-                    <p class="product-name">Asus ROG 5</p>
-                    <p class="product-price">P30,000</p>
-                    <p class="product-quantity">Stock: 2,000</p>
-                </div>
-                <div class="product-description me-3">
-                Play to the max with ROG Phone 5, the gaming phone that takes no prisoners. Powered to win by the latest Qualcomm® Snapdragon™ 888 5G Mobile Platform, this futuristic wonder packs an unbelievably responsive 144 Hz / 1 ms display, a monster 6000 mAh1 battery system, massively upgraded AirTrigger 5 game controls, and our iconic GameFX audio system. ROG Phone 5 will take your gaming to a new dimension — if you dare.
-                </div>
-                <img src="images/ellipsis-circle-svgrepo-com.svg" class="ellipsis-icon">
-                <div class="product-checkbox"> 
-                    <input class="form-check-input" type="checkbox">
-                </div>
-            </div>
+            </div> -->
             <div class="product-row p-2 mb-1 d-flex justify-content-around align-items-center">
                 <img src="images/asus-rog.jpg" class="product-pic rounded-circle me-3">
                 <div class="product-name-price">

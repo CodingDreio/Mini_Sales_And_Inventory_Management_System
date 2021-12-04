@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class InventoryController extends Controller
 {
@@ -14,7 +15,8 @@ class InventoryController extends Controller
     public function index()
     {
         //
-        return view('inventory');
+        $products = DB::select('select * from products');
+        return view('inventory', ['product' => $products]);
     }
 
     /**
@@ -55,9 +57,9 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        return view('inventory.inventory_edit', ['product' => $id]);
     }
 
     /**
