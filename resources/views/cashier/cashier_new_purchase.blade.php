@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Quantity:</span>
-                                    <input type="number" id="quantity" name="quantity" class="form-control" aria-label="Quantity" aria-describedby="basic-addon1" required>
+                                    <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="" aria-label="Quantity" aria-describedby="basic-addon1" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Discount:</span>
@@ -246,6 +246,19 @@
                     optionPeso.selected = true;
                 }
             });
+
+            
+            $(document).on('keyup','#quantity',function(){
+                var quantity = $(this).val();
+                const btn = document.querySelector('#addProd');
+                if(quantity > 0){
+                    btn.disabled = false;
+                }else{
+                    $(this).val("");
+                    btn.disabled = true;
+                }
+
+            });
         });
 
 // Function to display orders
@@ -257,9 +270,10 @@
                 datatype:"json",
                 success:function(response){
                     // console.log(response.orders);
-                    
+                    // {{ route("removeOrder",["id"=>'+item.order_id+']) }}
                     $('#ordersTableList').html('');
                     $.each(response.orders, function(key, item){
+                        // console.log(item.order_id);
                         $('#ordersTableList').append(
                             '<tr>\
                                   <td class="table-data">'+item.product_name+'</td>\
@@ -268,10 +282,7 @@
                                   <td class="table-data">'+item.total_price+'</td>\
                                   <td class="table-data">\
                                         <div class="float-middle">\
-                                            <form action="" method="POST">\
-                                                @csrf\
-                                                <button type="submit" class="btn tbl-btn btn-sm"><i class="fa fa-times"></i></button>\
-                                            </form>\
+                                            <a href="/cashier/remove-order/'+item.order_id+'" class="btn tbl-btn btn-sm"><i class="fa fa-times"></i></a>\
                                         </div>\
                                   </td>\
                                 </tr>'

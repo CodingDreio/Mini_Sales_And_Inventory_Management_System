@@ -26,7 +26,7 @@
                             <br>
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="" style="text-decoration: none;">
+                                    <a href="{{ route('cashier_sales',['id'=>Auth::id()]) }}" style="text-decoration: none;">
                                         <div class="row">
                                             <div class="col-md-4 text-center">
                                                 <img class="cashier-opt-img" src="{{ asset('images/sale.png') }}" alt="Cart">

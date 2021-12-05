@@ -31,11 +31,12 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 // Cashier Routes
     Route::get('/cashier', [CashierController::class, 'index'])->name('cashier');
     Route::get('/cashier/new/{si}', [CashierController::class, 'newPurchase'])->name('cashierNew');
-    Route::get('/cashier/sales/{id}',[CashierController::class, 'viewTodaySale'])->name('cashier_sales');
+    Route::get('/cashier/sales/{id}',[CashierController::class, 'viewSales'])->name('cashier_sales');
     Route::permanentRedirect('/cashier/new', '/cashier');
     Route::permanentRedirect('/cashier/sales', '/cashier');
     // CRUD Routes
     Route::get('/cashier/cancel/{id}', [CashierController::class, 'cancelPurchase'])->name('cancelPurchase');
+    Route::get('/cashier/remove-order/{id}', [CashierController::class, 'removeOrder'])->name('removeOrder');
     Route::post('/cashier/complete/{id}', [CashierController::class, 'completePurchase'])->name('completePurchase');
     Route::post('/cashier/add_order/{id}', [CashierController::class, 'addOrder'])->name('addOrder');
     Route::get('/cashier/fetch_order/{id}', [CashierController::class, 'fetchOrder'])->name('fetchOrder');

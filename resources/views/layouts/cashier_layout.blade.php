@@ -48,9 +48,10 @@
                     <li style="border-right: 1px solid white;"></li> --}}
                 @elseif (request()->routeIs('cashier_sales'))
                     <li><a href="{{ route('cashier') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
-                    <li><a href="{{ route('cashier_sales', ['id' => 2]) }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Profile</a></li>
+                    {{-- <li><a href="{{ route('cashier_sales', ['id' => 2]) }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Profile</a></li> --}}
                     <li style="border-right: 1px solid white;"></li>
                 @endif
+                @if (!request()->routeIs('cashierNew'))
                 <li>
                     <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();
@@ -62,6 +63,7 @@
                         @csrf
                     </form>
                 </li>
+                @endif
             </ul>
         </nav>
         

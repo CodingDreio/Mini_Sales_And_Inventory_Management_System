@@ -81,25 +81,39 @@ class CashierController extends Controller
     }
 
     // =========================================================================
+    // Cancel Purchase
+    // Deletes the current transaction data
+    // =========================================================================
+    public function removeOrder(Request $request, $id){
+        DB::table('orders')->where('order_id', '=', $id)->delete();
+        if(session()->has('si')){
+            return redirect()->route('cashierNew',$request->session()->get('si'));
+        }
+        return redirect()->route('cashier');
+    }
+
+    // =========================================================================
     // Confirm Purchase
     // Updates the current transaction data
     // =========================================================================
     public function completePurchase(Request $request,$id){
-        $orders =  DB::table('orders')
-                        ->where('sales_report_id', '=', $id)
-                        ->get();
+        $orders = DB::table('orders')
+                    ->join('products', 'orders.product_id', '=', 'products.product_id')
+                    ->select('orders.*', 'products.product_name', 'products.price', 'products.vat')
+                    ->where('orders.sales_report_id','=',$id)
+                    ->get();
+
         $vatableAmount = 0;
         $amount = 0;
         foreach($orders as $order){
-            $products = DB::table('products')
-                        ->where('product_id','=',$order->product_id)
-                        ->get();
-            foreach($products as $product){
-                if($product->vat == 1){
-                    $vatableAmount += $order->total_price;
-                }
+            if($order->vat == 1){
+                $vatableAmount += $order->total_price;
             }
             $amount += $order->total_price;
+
+            DB::table('products')
+                ->where('product_id','=',$order->product_id)
+                ->decrement('quantity');
         }
         
         DB::table('sales_reports')
@@ -230,16 +244,13 @@ class CashierController extends Controller
 
 
 
-
-
- 
     
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function viewTodaySale($id)
+    public function viewSales()
     {
         return view('cashier.cashier_sales');
     }
