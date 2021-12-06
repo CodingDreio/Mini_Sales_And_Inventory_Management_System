@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Product;
 
 use Illuminate\Http\Request;
 use DB;
@@ -46,14 +47,17 @@ class InventoryController extends Controller
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $quantity = $request->input('product_quantity');
+        $photo = "images/".$request->input('product_photo');
         $description = $request->input('product_description');
         DB::table('products')
         ->insert([
             'product_name' => $name,
             'quantity' => $quantity,
             'price' => $price,
+            'photo' => $photo,
             'product_description' => $description
             ]);
+        //dd($photo);
         $products = DB::select('select * from products');
         return redirect()->route('inventory');
     }
@@ -66,7 +70,8 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = DB::select('select * from products where product_id = ?',[$id]);
+        return view('inventory.inventory_show', ['product' => $product[0]]);
     }
 
     /**
@@ -99,6 +104,7 @@ class InventoryController extends Controller
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $quantity = $request->input('product_quantity');
+        $photo = "images/".$request->input('product_photo');
         $description = $request->input('product_description');
         DB::table('products')
         ->where('product_id', $id)
@@ -106,6 +112,7 @@ class InventoryController extends Controller
             'product_name' => $name,
             'quantity' => $quantity,
             'price' => $price,
+            'photo' => $photo,
             'product_description' => $description
             ]);
         $products = DB::select('select * from products');
@@ -122,5 +129,23 @@ class InventoryController extends Controller
     {
         DB::table('products')->where('product_id', '=', $id)->delete();
         return redirect()->route('inventory');
+    }
+
+    public function search(Request $request){
+        request()->validate([
+            'product_search' => 'required'
+        ]);
+
+        // Get the search value from the request
+        $search = $request->input('product_search');
+        //dd($search);
+    
+        // Search in the title and body columns from the posts table
+        //$products = DB::select("select * from products where product_name LIKE ? OR product_description LIKE ?", [$search_query], [$search_query]);
+        $products = DB::table('products')
+            ->where('product_name', 'LIKE', "'%".$search."%'") 
+            ->orWhere('product_description', 'LIKE', "'%".$search."%'") 
+            ->get(); 
+        return view('inventory.inventory_search', ['product' => $products]);
     }
 }

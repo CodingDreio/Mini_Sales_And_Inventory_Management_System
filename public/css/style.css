@@ -244,10 +244,22 @@ input[type="search"]:focus {
           transform: scale(1.5);
 }
 
+.ellipsis-icon, .product-checkbox, .delete-button, .submit-button {
+  z-index: 1;
+}
+
 .edit-photo {
   width: 15rem;
   height: 15rem;
   border-radius: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.show-photo {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 20%;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -265,7 +277,7 @@ input[type="search"]:focus {
     text-align: center;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
-    z-index: 1;
+    z-index: 2;
     padding: 0;
   }
   .prodigy-navbar li {

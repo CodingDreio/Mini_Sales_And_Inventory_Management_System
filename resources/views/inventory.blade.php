@@ -6,22 +6,24 @@
             <h1>Sales and Inventory</h1>
             <button type="button" class="primary-button px-5" onclick="location.href = 'inventory/create';">Add</button>
         </div>
-        <div class="input-group mb-2">
-            <input type="search" class="form-control search-bar" placeholder="Search" aria-label="Search"
-                aria-describedby="search-addon" />
-            <button type="button" class="search-button px-4">search</button>
-        </div>
+        <form action="{{route('inventory_search')}}" method="GET">
+            <div class="input-group mb-2">
+                <input type="search" class="form-control search-bar" placeholder="Search" aria-label="Search" id="product_search" name="product_search"
+                    aria-describedby="search-addon" />
+                <button type="button" class="search-button px-4" onclick="location.href = 'inventory/search';">search</button>
+            </div>
+        </form>
         <div class="product-list">
             @foreach($product as $prod)
-                <div class="product-row p-2 mb-1">
+                <div class="product-row p-2 mb-1" onclick="location.href = 'inventory/show/{{$prod -> product_id}}';">
                     <div class="d-flex justify-content-around align-items-center">
-                        <img src="{{$prod -> photo}}" class="product-pic rounded-circle me-3">
+                        <img src="{{$prod -> photo}}" class="product-pic rounded-circle me-3" onclick="showProduct($prod->product_id)">
                         <div class="product-name-price">
                             <p class="product-name">{{$prod -> product_name}}</p>
                             <p class="product-price">P{{$prod -> price}}</p>
                             <p class="product-quantity">Stock: {{$prod -> quantity}}</p>
                         </div>
-                        <div class="product-description me-3">
+                        <div class="product-description me-3 w-100">
                         {{$prod -> product_description}}
                         </div>
                         <img src="images/ellipsis-circle-svgrepo-com.svg" class="ellipsis-icon" onclick="showCRUD({{$prod -> product_id}})">
@@ -30,8 +32,18 @@
                         </div>
                     </div>
                     <div class="crud-div mt-2" id="display-crud-{{$prod -> product_id}}">
-                        <button type="button" class="secondary-button px-3 ms-1" onclick="location.href = 'inventory/delete/{{$prod -> product_id}}';">Delete</button>
-                        <button type="button" class="primary-button px-3 ms-1" onclick="location.href = 'inventory/edit/{{$prod -> product_id}}';">Update</button>
+                        <button type="button" class="secondary-button px-3 ms-1 delete-button" onclick="
+                            if (!e) var e = window.event;
+                            e.cancelBubble = true;
+                            if (e.stopPropagation) e.stopPropagation();
+                            location.href = 'inventory/delete/{{$prod -> product_id}}';">
+                        Delete</button>
+                        <button type="button" class="primary-button px-3 ms-1 submit-button" onclick="
+                            if (!e) var e = window.event;
+                            e.cancelBubble = true;
+                            if (e.stopPropagation) e.stopPropagation();
+                            location.href = 'inventory/edit/{{$prod -> product_id}}';">
+                        Update</button>
                     </div>
                 </div>
             @endforeach

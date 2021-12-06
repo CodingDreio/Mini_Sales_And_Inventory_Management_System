@@ -1,4 +1,8 @@
 function showCRUD(id){
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+    
     var d_crud = document.getElementById("display-crud-"+id);
 
     if (d_crud.style.display === "block") {
