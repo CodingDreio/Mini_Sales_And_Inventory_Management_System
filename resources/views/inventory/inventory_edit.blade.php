@@ -5,6 +5,9 @@
         <form method="POST" action="/inventory/edit/{{$product -> product_id}}">
             @method('PUT')
             @csrf
+            <div class="d-flex justify-content-center mb-2">
+                <img src="../../{{$product->photo}}" class="edit-photo align-center">
+            </div>
             <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="product_name" value="{{$product -> product_name}}">

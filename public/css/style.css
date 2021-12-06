@@ -244,6 +244,14 @@ input[type="search"]:focus {
           transform: scale(1.5);
 }
 
+.edit-photo {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 @media (max-width: 952px) {
   .prodigy-navbar .checkbtn {
     display: block;

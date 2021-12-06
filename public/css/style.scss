@@ -233,6 +233,14 @@ input[type="search"]:focus {
     transform: scale(1.5);
 }
 
+//EDIT PRODUCT
+.edit-photo {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
 
 // MEDIA QUERIES
 
