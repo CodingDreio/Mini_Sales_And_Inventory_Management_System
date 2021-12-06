@@ -1,5 +1,5 @@
-function showCRUD(){
-    var d_crud = document.getElementById("display-crud");
+function showCRUD(id){
+    var d_crud = document.getElementById("display-crud-"+id);
 
     if (d_crud.style.display === "block") {
         d_crud.style.display = "none";

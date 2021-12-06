@@ -26,7 +26,7 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('inventory.inventory_create');
     }
 
     /**
@@ -37,7 +37,25 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->input('product_name'));
+        request()->validate([
+            'product_name' => 'required',
+            'product_price' => 'required',
+            'product_quantity' => 'required'
+        ]);
+        $name = $request->input('product_name');
+        $price = $request->input('product_price');
+        $quantity = $request->input('product_quantity');
+        $description = $request->input('product_description');
+        DB::table('products')
+        ->insert([
+            'product_name' => $name,
+            'quantity' => $quantity,
+            'price' => $price,
+            'product_description' => $description
+            ]);
+        $products = DB::select('select * from products');
+        return redirect()->route('inventory');
     }
 
     /**
@@ -72,7 +90,26 @@ class InventoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->input('product_name'));
+        request()->validate([
+            'product_name' => 'required',
+            'product_price' => 'required',
+            'product_quantity' => 'required'
+        ]);
+        $name = $request->input('product_name');
+        $price = $request->input('product_price');
+        $quantity = $request->input('product_quantity');
+        $description = $request->input('product_description');
+        DB::table('products')
+        ->where('product_id', $id)
+        ->update([
+            'product_name' => $name,
+            'quantity' => $quantity,
+            'price' => $price,
+            'product_description' => $description
+            ]);
+        $products = DB::select('select * from products');
+        return redirect()->route('inventory');
     }
 
     /**
@@ -81,8 +118,9 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        DB::table('products')->where('product_id', '=', $id)->delete();
+        return redirect()->route('inventory');
     }
 }

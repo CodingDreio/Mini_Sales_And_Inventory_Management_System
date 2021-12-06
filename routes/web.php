@@ -35,5 +35,7 @@ Route::get('/cashier/sales/{id}',[CashierController::class, 'viewTodaySale'])->n
 //Inventory Routes
 Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory_create');
 Route::get('/inventory/edit/{product}', [InventoryController::class, 'edit'])->name('inventory_edit');
-Route::get('/inventory/{product}', [InventoryController::class, 'update'])->name('inventory_update');
+Route::post('/inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory_update');
+Route::post('/inventory/store', [InventoryController::class, 'store'])->name('inventory_store');
+Route::get('/inventory/delete/{id}', [InventoryController::class, 'delete'])->name('inventory_delete');
 //Route::get('products','InventoryController@index');

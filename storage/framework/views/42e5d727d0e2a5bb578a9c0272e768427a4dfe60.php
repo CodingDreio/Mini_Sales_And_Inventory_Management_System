@@ -4,7 +4,7 @@
     <div class="container">
         <div class="d-md-flex justify-content-md-between mb-4">
             <h1>Sales and Inventory</h1>
-            <button type="button" class="primary-button px-5">Add</button>
+            <button type="button" class="primary-button px-5" onclick="location.href = 'inventory/create';">Add</button>
         </div>
         <div class="input-group mb-2">
             <input type="search" class="form-control search-bar" placeholder="Search" aria-label="Search"
@@ -25,14 +25,14 @@
                         <?php echo e($prod -> product_description); ?>
 
                         </div>
-                        <img src="images/ellipsis-circle-svgrepo-com.svg" class="ellipsis-icon" onclick="showCRUD()">
+                        <img src="images/ellipsis-circle-svgrepo-com.svg" class="ellipsis-icon" onclick="showCRUD(<?php echo e($prod -> product_id); ?>)">
                         <div class="product-checkbox"> 
                             <input class="form-check-input" type="checkbox">
                         </div>
                     </div>
-                    <div class="crud-div mt-2" id="display-crud">
-                        <button type="button" class="secondary-button px-3 ms-1">Delete</button>
-                        <button type="button" class="primary-button px-3 ms-1">Update</button>
+                    <div class="crud-div mt-2" id="display-crud-<?php echo e($prod -> product_id); ?>">
+                        <button type="button" class="secondary-button px-3 ms-1" onclick="location.href = 'inventory/delete/<?php echo e($prod -> product_id); ?>';">Delete</button>
+                        <button type="button" class="primary-button px-3 ms-1" onclick="location.href = 'inventory/edit/<?php echo e($prod -> product_id); ?>';">Update</button>
                     </div>
                 </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
