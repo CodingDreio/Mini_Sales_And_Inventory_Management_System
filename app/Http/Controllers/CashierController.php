@@ -19,7 +19,6 @@ class CashierController extends Controller
      */
     public function index(Request $request)
     {
-
         $userId = Auth::id();
 
         if($userId == null){
@@ -58,7 +57,7 @@ class CashierController extends Controller
                     "updated_at" => date('Y-m-d H:i:s'),
                 ]);
             
-                session(['si' => $si]);
+            session(['si' => $si]);
             return redirect()->route('cashierNew',$si);
         }else{
             
