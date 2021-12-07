@@ -132,10 +132,6 @@ class InventoryController extends Controller
     }
 
     public function search(Request $request){
-        request()->validate([
-            'product_search' => 'required'
-        ]);
-
         // Get the search value from the request
         $search = $request->input('product_search');
         //dd($search);
@@ -146,6 +142,6 @@ class InventoryController extends Controller
             ->where('product_name', 'LIKE', "'%".$search."%'") 
             ->orWhere('product_description', 'LIKE', "'%".$search."%'") 
             ->get(); 
-        return view('inventory.inventory_search', ['product' => $products]);
+        return view('inventory', ['product' => $products]);
     }
 }
