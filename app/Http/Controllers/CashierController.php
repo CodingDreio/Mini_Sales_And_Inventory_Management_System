@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 use App\Models\SalesReport;
 use App\Models\Order;
 
@@ -238,22 +239,77 @@ class CashierController extends Controller
     }
 
 
-
-
-
-
-
+// ================================================================================================
     
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function viewSales()
+    public function viewSales($id)
     {
-        return view('cashier.cashier_sales');
+        $dt = Carbon::now();
+        $totalAmount = 0;
+        $sales = DB::table('sales_reports')
+                    ->where('emp_id','=',$id)
+                    ->where('created_at','LIKE','%'.$dt->toDateString().'%')
+                    ->get();
+        foreach($sales as $sale){
+            $totalAmount += $sale->total_price;
+        }
+        // dd($sales);
+        return view('cashier.cashier_sales',['todaySales' => $sales,
+        'date'=>$dt->toDateString(),
+        'totalAmount'=>$totalAmount,
+        'count'=>$sales->count()]);
     }
 
+    
+
+    // =========================================================================
+    // View sales orders
+    // 
+    // =========================================================================
+    public function fecthOrdersByID($id){
+        $orders = DB::table('orders')
+                    ->join('products', 'orders.product_id', '=', 'products.product_id')
+                    ->select('orders.*', 'products.product_name', 'products.price')
+                    ->where('orders.sales_report_id','=',$id)
+                    ->get();
+                    
+        $sales = DB::table('sales_reports')
+                    ->where('sales_report_id','=',$id)
+                    ->get();
+
+        return response()->json([
+            'sales'=>$sales,
+            'orders'=>$orders,
+        ]);
+    }
+
+    
+
+    // =========================================================================
+    // View sales orders
+    // 
+    // =========================================================================
+    public function fetchSalesByDate($date){
+        $sales = DB::table('sales_reports')
+                    ->where('created_at','LIKE','%'.$date.'%')
+                    ->get();
+
+        $totalAmount = 0;
+        foreach($sales as $sale){
+            $totalAmount += $sale->total_price;
+        }
+
+        return response()->json([
+            'sales'=>$sales,
+            'totalAmount'=>$totalAmount,
+            'count'=>$sales->count(),
+            'date'=>$date,
+        ]);
+    }
 
 
     /**
