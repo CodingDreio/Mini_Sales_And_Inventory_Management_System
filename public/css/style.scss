@@ -75,8 +75,6 @@ body {
 }
 
 .primary-button {
-    width: 100%;
-    height: auto;
     padding: 0.5rem 0 0.5rem;
     background-color: #1F4068;
     color: white;
@@ -86,7 +84,6 @@ body {
 }
 
 .secondary-button {
-    width:100%;
     height: auto;
     padding: 0.5rem 0 0.5rem;
     background-color: #991f1f;
@@ -94,6 +91,10 @@ body {
     border-radius: 0.75rem;
     border: none;
     text-decoration: none;
+
+    span {
+        background-color: #e75454;
+    }
 }
 
 .tertiary-button {
@@ -106,6 +107,29 @@ body {
     text-decoration: none;
 }
 
+.search-bar {
+    border: none;
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+}
+
+input[type="search"]:focus {
+    border-width: 0px;
+    outline:0; /* I have also tried outline:none */
+    -webkit-appearance:none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.search-button {
+    background-color: #32502E;
+    color: white;
+    box-shadow: none;
+    border: none;
+    border-top-right-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+}
 
 
 .card-view {
@@ -130,6 +154,105 @@ body {
     background-image: url(../images/bg-green.jpg);
 }
 
+//INVENTORY
+.product-row {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px #0000001a;
+}
+.product-row:hover {
+    background-color: #c8e7ba;
+    cursor: pointer;
+}
+
+.product-pic {
+    height: 4.5rem;
+    width: 4.5rem;
+    object-fit: cover;
+}
+
+.product-name {
+    width: 11rem;
+    font-size: 19px;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    margin: 0;
+}
+.product-price {
+    font-size: 16px;
+    color: #0d8109;
+    margin: 0;
+}
+
+.product-quantity {
+    margin: 0;
+}
+
+.product-name-price{
+    width: 12rem;
+}
+
+.product-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ellipsis-icon {
+    height: 3rem;
+    width: 3rem;
+    filter: invert(24%) sepia(10%) saturate(2249%) hue-rotate(66deg) brightness(95%) contrast(83%);
+}
+
+.ellipsis-icon:hover {
+    filter: invert(24%) sepia(10%) saturate(2249%) hue-rotate(66deg) brightness(75%) contrast(100%);
+}
+
+.product-checkbox {
+    display: none;
+}
+
+.crud-div {
+    text-align: right;
+    display: none;
+}
+
+.select-multiple-blue {
+    background-color: #1F4068;
+    color: white;
+    height: auto;
+    border-radius: 0.75rem;
+}
+
+.select-multiple-check {
+    transform: scale(1.5);
+}
+
+.ellipsis-icon, .product-checkbox, .delete-button, .submit-button {
+    z-index: 1;
+}
+
+//EDIT PRODUCT
+.edit-photo {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+//SHOW PRODUCT
+.show-photo {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 20%;
+    object-fit: cover; 
+}
+
 
 // MEDIA QUERIES
 
@@ -147,7 +270,7 @@ body {
             left: -100%;
             text-align: center;
             transition: all 0.5s;
-            z-index: 1;
+            z-index: 2;
             padding: 0;
         }
 
@@ -165,6 +288,16 @@ body {
         #check:checked ~ ul {
             left: 0;
         }
+    }
+}
+
+@media (max-width: 450px){
+    .product-description {
+        display: none;
+    }
+
+    .product-name {
+        width: 9rem;
     }
 }
 

@@ -42,3 +42,12 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/cashier/fetch_order/{id}', [CashierController::class, 'fetchOrder'])->name('fetchOrder');
     Route::get('/cashier/fetch_order_by_id/{id}', [CashierController::class, 'fecthOrdersByID'])->name('fetchOrderById');
     Route::get('/cashier/fetch_sales_by_date/{date}', [CashierController::class, 'fetchSalesByDate'])->name('fetchSalesByDate');
+
+    // Inventory Routes
+    Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory_create');
+    Route::get('/inventory/edit/{product}', [InventoryController::class, 'edit'])->name('inventory_edit');
+    Route::post('/inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory_update');
+    Route::post('/inventory/store', [InventoryController::class, 'store'])->name('inventory_store');
+    Route::get('/inventory/show/{id}', [InventoryController::class, 'show'])->name('inventory_show');
+    Route::get('/inventory/delete/{id}', [InventoryController::class, 'delete'])->name('inventory_delete');
+    Route::get('/inventory/search', [InventoryController::class, 'search'])->name('inventory_search');
