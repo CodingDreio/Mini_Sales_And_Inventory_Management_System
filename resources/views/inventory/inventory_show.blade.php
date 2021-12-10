@@ -2,8 +2,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h1 class="mb-2">Product Information</h1>
-            <div class="col-md-3">
+            <h1 class="mb-3">Product Information</h1>
+            <div class="col-md-4 mb-3 d-flex justify-content-center">
                 <img src="../../{{$product->photo}}" class="show-photo align-center">
             </div>
             <div class="col-md">

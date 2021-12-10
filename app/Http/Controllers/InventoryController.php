@@ -137,11 +137,12 @@ class InventoryController extends Controller
         //dd($search);
     
         // Search in the title and body columns from the posts table
-        //$products = DB::select("select * from products where product_name LIKE ? OR product_description LIKE ?", [$search_query], [$search_query]);
+        //$products = DB::select("select * from products where product_name LIKE ? OR product_description LIKE ?", "'%".$search."%'", "'%".$search."%'");
         $products = DB::table('products')
-            ->where('product_name', 'LIKE', "'%".$search."%'") 
-            ->orWhere('product_description', 'LIKE', "'%".$search."%'") 
-            ->get(); 
-        return view('inventory', ['product' => $products]);
+            ->where('product_name', 'LIKE', '%'.$search.'%') 
+            ->orWhere('product_description', 'LIKE', '%'.$search.'%') 
+            ->get();
+        //dd($products);
+        return view('inventory.inventory_search', ['product' => $products]);
     }
 }
