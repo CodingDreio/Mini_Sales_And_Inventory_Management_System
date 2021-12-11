@@ -83,6 +83,7 @@ class InventoryController extends Controller
     public function edit($id)
     {
         $product = DB::select('select * from products where product_id = ?',[$id]);
+        //dd($product);
         return view('inventory.inventory_edit', ['product' => $product[0]]);
     }
 
@@ -116,6 +117,7 @@ class InventoryController extends Controller
             'product_description' => $description
             ]);
         $products = DB::select('select * from products');
+        //dd($photo);
         return redirect()->route('inventory');
     }
 
