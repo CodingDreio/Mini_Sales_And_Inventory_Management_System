@@ -17,7 +17,7 @@
             @foreach($product as $prod)
                 <div class="product-row p-2 mb-1" onclick="location.href = 'inventory/show/{{$prod -> product_id}}';">
                     <div class="d-flex justify-content-around align-items-center">
-                        <img src="{{$prod -> photo}}" class="product-pic rounded-circle me-3" onclick="showProduct($prod->product_id)">
+                        <img src="../{{$prod -> photo}}" class="product-pic rounded-circle me-3" onclick="showProduct($prod->product_id)">
                         <div class="product-name-price">
                             <p class="product-name">{{$prod -> product_name}}</p>
                             <p class="product-price">P{{$prod -> price}}</p>
