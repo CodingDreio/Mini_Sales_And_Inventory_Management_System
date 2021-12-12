@@ -42,6 +42,8 @@
                                                     Cashier
                                                 @elseif ($user->role == 3)
                                                     Inventory
+                                                @elseif ($user->role == 1)
+                                                    Admin
                                                 @endif
                                             </h6>
                                         </a>

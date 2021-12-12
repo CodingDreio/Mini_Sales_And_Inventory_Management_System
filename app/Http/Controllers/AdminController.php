@@ -15,7 +15,11 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $userId = Auth::id();
+
+        if($userId == null){
+            return redirect()->route('login');
+        }
         return view('home');
     }
 
@@ -25,6 +29,12 @@ class AdminController extends Controller
 // ======================================================================================
     public function viewUsers()
     {
+        
+        $userId = Auth::id();
+
+        if($userId == null){
+            return redirect()->route('login');
+        }
         $id = Auth::id();
         $users = DB::table('users')
                 ->where('id','!=',$id)    
@@ -51,6 +61,34 @@ class AdminController extends Controller
     {
         // dd("HEY");
         return view('admin.admin_update_user');
+    }
+
+
+// ======================================================================================
+//     Store new user account to database
+// ======================================================================================
+    public function storeUser(Request $request)
+    {
+        // Database query here
+
+
+
+        // Redirect to view users
+        return redirect()->route('admin_viewUsers');
+    }
+
+
+// ======================================================================================
+//     Store new user account to database
+// ======================================================================================
+    public function editUser(Request $request, $id)
+    {
+        // Database query here
+
+        
+
+        // Redirect to view users
+        return redirect()->route('admin_viewUsers');
     }
 
 

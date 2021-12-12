@@ -17,7 +17,7 @@
                     <h6 class="text-secondary">Fields with (<span class="text-danger">*</span>) is required.</h6>
                 </div>
                 <div class="card-body p-4">
-                    <form action="" method="post">
+                    <form action="{{ route('admin_storeUsers') }}" method="post">
                         @csrf
                         
                         <div class="row">
