@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -16,6 +18,44 @@ class AdminController extends Controller
         //
         return view('home');
     }
+
+
+// ======================================================================================
+//     View Users
+// ======================================================================================
+    public function viewUsers()
+    {
+        $id = Auth::id();
+        $users = DB::table('users')
+                ->where('id','!=',$id)    
+                ->get();
+        // dd($users);
+        return view('admin.admin_users',['users'=>$users]);
+    }
+
+
+// ======================================================================================
+//     Add Users
+// ======================================================================================
+    public function addUsers()
+    {
+        // dd("HEY");
+        return view('admin.admin_add_users');
+    }
+
+
+// ======================================================================================
+//     Shows Update User Form 
+// ======================================================================================
+    public function updateUsers($id)
+    {
+        // dd("HEY");
+        return view('admin.admin_update_user');
+    }
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
