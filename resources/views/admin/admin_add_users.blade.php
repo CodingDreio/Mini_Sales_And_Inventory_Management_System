@@ -58,25 +58,25 @@
                             <div class="col-md-6 col-lg-4 col-sm-12">
                                 <div class="mb-2">
                                     <label for="address" class="form-label">Street: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Street" id="street" name="address" required>
+                                    <input type="text" class="form-control" placeholder="Street" id="street" name="street" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-3 col-sm-12">
                                 <div class="mb-2">
                                     <label for="address" class="form-label">City: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="City" id="city" name="address" required>
+                                    <input type="text" class="form-control" placeholder="City" id="city" name="city" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-3 col-sm-12">
                                 <div class="mb-2">
                                     <label for="address" class="form-label">Provivince: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Provivince" id="province" name="address" required>
+                                    <input type="text" class="form-control" placeholder="Provivince" id="province" name="province" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-2 col-sm-12">
                                 <div class="mb-2">
                                     <label for="address" class="form-label">Zip-Code:&nbsp;<strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Zip-Code" id="zipcode" name="address" required>
+                                    <input type="text" class="form-control" placeholder="Zip-Code" id="zipcode" name="zipcode" required>
                                 </div>
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
@@ -94,7 +94,7 @@
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <div class="mb-2">
                                     <label for="email" class="form-label">Email: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Email" id="email" name="email" required>
+                                    <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
                                 </div>
                             </div>
                         </div>
@@ -119,14 +119,14 @@
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <div class="mb-2">
                                     <label for="password" class="form-label">Confirm Password <strong class="text-danger">*</strong></label>
-                                    <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
+                                    <input type="password" class="form-control" placeholder="Password" id="cpassword" name="cpassword" required>
                                 </div>
                             </div>
                         </div>
                         <hr class="mt-4">
                         <div class="float-end">
                             <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger"> Cancel </a>
-                            <button type="submit" class="btn btn-primary"> Submit </button>
+                            <button type="submit" class="btn btn-primary" id="submitAdd" disabled> Submit </button>
                         </div>
                     </form>
                 </div>
@@ -172,6 +172,27 @@
                 defImage.style.display = "block";
                 imgWarning.style.display = "none";
             }
-        });             
+        });    
+        
+        
+        $(document).ready(function(){
+            $("#cpassword").on("keyup", function(){
+                var pass = $("#password").val();
+                var cpass = $("#cpassword").val();
+                var btnSubmit = document.getElementById("submitAdd");
+
+                btnSubmit.disabled = true;
+                if(pass === cpass){
+                    btnSubmit.disabled = false;
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            $("#email").on("keyup", function(){
+                
+            });
+        });
+        
     </script>
 @endsection
