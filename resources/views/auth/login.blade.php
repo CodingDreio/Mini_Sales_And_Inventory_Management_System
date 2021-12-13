@@ -47,7 +47,7 @@
                                     </a>
                                 @endif
                                 <hr>
-                                <button type="button" class="tertiary-button px-5 mb-2">Create a New Account</button>
+                                {{-- <button type="button" class="tertiary-button px-5 mb-2">Create a New Account</button> --}}
                             </div>
                         </div>
                     </div>

@@ -43,16 +43,15 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/cashier/fetch_order_by_id/{id}', [CashierController::class, 'fecthOrdersByID'])->name('fetchOrderById');
     Route::get('/cashier/fetch_sales_by_date/{date}', [CashierController::class, 'fetchSalesByDate'])->name('fetchSalesByDate');
 
-// <<<<<<< HEAD
-//     // Inventory Routes
-//     Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory_create');
-//     Route::get('/inventory/edit/{product}', [InventoryController::class, 'edit'])->name('inventory_edit');
-//     Route::post('/inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory_update');
-//     Route::post('/inventory/store', [InventoryController::class, 'store'])->name('inventory_store');
-//     Route::get('/inventory/show/{id}', [InventoryController::class, 'show'])->name('inventory_show');
-//     Route::get('/inventory/delete/{id}', [InventoryController::class, 'delete'])->name('inventory_delete');
-//     Route::get('/inventory/search', [InventoryController::class, 'search'])->name('inventory_search');
-// =======
+
+// Admin Routes 
+    Route::get('/admin/users', [AdminController::class, 'viewUsers'])->name('admin_viewUsers');
+    Route::get('/admin/users/add', [AdminController::class, 'addUsers'])->name('admin_addUsers');
+    Route::get('/admin/fetch_user', [AdminController::class, 'fetchUsers'])->name('admin_fetchUsers');
+    Route::get('/admin/search_user/{keyword}', [AdminController::class, 'searchUsers'])->name('admin_searchUsers');
+    Route::get('/admin/users/update/{id}', [AdminController::class, 'updateUsers'])->name('admin_updateUsers');
+    Route::post('/admin/users/store', [AdminController::class, 'storeUser'])->name('admin_storeUsers');
+    Route::post('/admin/users/edit/{id}', [AdminController::class, 'editUser'])->name('admin_editUser');
 
 // Inventory Routes
 Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory_create');
