@@ -63,8 +63,10 @@ class AdminController extends Controller
 // ======================================================================================
     public function updateUsers($id)
     {
-        // dd("HEY");
-        return view('admin.admin_update_user',['id'=>$id]);
+        $users = DB::table('users')
+                    ->where('id','=',$id)
+                    ->get();
+        return view('admin.admin_update_user',['id'=>$id,'users'=>$users]);
     }
 
 
@@ -83,7 +85,7 @@ class AdminController extends Controller
             $imgName = $request->input('lname').'-'.time().'.'.$request->imgInput->extension();
             $request->imgInput->move(public_path('img'),$imgName);
         }
-
+        // dd($request->input('bdate'));
         User::create([
             'first_name' => $request->input('fname'),
             'last_name' => $request->input('lname'),
@@ -106,7 +108,7 @@ class AdminController extends Controller
 
 
 // ======================================================================================
-//     Store new user account to database
+//     Update user account to database
 // ======================================================================================
     public function editUser(Request $request, $id)
     {
@@ -114,6 +116,22 @@ class AdminController extends Controller
 
         
 
+        // Redirect to view users
+        return redirect()->route('admin_viewUsers');
+    }
+
+// ======================================================================================
+//     Remove user account
+// ======================================================================================
+    public function removeUser($id)
+    {
+        
+        // Database query here
+        DB::table('users')
+            ->where('id','=',$id)
+            ->delete();
+            
+        // dd("HEYYY");
         // Redirect to view users
         return redirect()->route('admin_viewUsers');
     }

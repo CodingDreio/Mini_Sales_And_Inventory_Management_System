@@ -16,125 +16,138 @@
                     <h4 class="text-center header-text">Update Users</h4>
                     <h6 class="text-secondary">Fields with (<span class="text-danger">*</span>) is required.</h6>
                 </div>
-                <div class="card-body p-4">
-                    <form action="{{ route('admin_editUser',['id'=>$id]) }}" method="post">
-                        @csrf
-                        
-                        <div class="row">
-                            <div class="col-md-4 col-lg-4 col-sm-12">
-                                <div class="mb-2">
-                                    <div class="align-items-center text-center" id="updateImg">
-										<div class="align-items-center text-center" id="imgPreview">
-											<img src="{{ asset('images/default.png')}}" alt="Profile Picture" class="rounded-circle imgDef" width="150">
-											<img src="" alt="New Profile Picture" class="rounded-circle imgPrev" width="150">
-										</div>
-										<div class="mt-3">
-											<input type="file" name="imgInput" id="imgInput" accept="file_extension | audio/* | video/* | image/* | media_type">
-										</div>
-										<div class="imgWarning mt-2">
-											<h6 class="text-danger">
-												Invalid Image File <br>
-												Please select another image file.
-											</h6>
-										</div>
-									</div>
+                @foreach ($users as $user)
+                    <div class="card-body p-4">
+                        <form action="{{ route('admin_editUser',['id'=>$id]) }}" method="post">
+                            @csrf
+                            
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12">
+                                    <div class="mb-2">
+                                        <div class="align-items-center text-center" id="updateImg">
+                                            <div class="align-items-center text-center" id="imgPreview">
+                                                <img src="{{ asset('images/'.$user->photo) }}" alt="Profile Picture" class="rounded-circle imgDef" width="150">
+                                                <img src="" alt="New Profile Picture" class="rounded-circle imgPrev" width="150">
+                                            </div>
+                                            <div class="mt-3">
+                                                <input type="file" name="imgInput" id="imgInput" accept="file_extension | audio/* | video/* | image/* | media_type">
+                                            </div>
+                                            <div class="imgWarning mt-2">
+                                                <h6 class="text-danger">
+                                                    Invalid Image File <br>
+                                                    Please select another image file.
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <label class="form-label" for="name">Name: <strong class="text-danger">*</strong></label>
-                            <div class="col-md-6 col-lg-6 col-sm-12 mb-1">
-                                <input class="form-control" type="text" placeholder="First Name" id="fname" name="fname" required>
-                            </div>
-                            {{-- <div class="col-md-4 col-lg-4 col-sm-12 mb-1">
-                                <input class="form-control" type="text" placeholder="Middle Name" id="mname" name="mname">
-                            </div> --}}
-                            <div class="col-md-6 col-lg-6 col-sm-12 mb-1">
-                                <input class="form-control" type="text" placeholder="Last Name" id="lname" name="lname" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-lg-4 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="address" class="form-label">Street: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Street" id="street" name="address" required>
+                            <div class="row">
+                                <label class="form-label" for="name">Name: <strong class="text-danger">*</strong></label>
+                                <div class="col-md-6 col-lg-6 col-sm-12 mb-1">
+                                    <input class="form-control" type="text" placeholder="First Name" id="fname" name="fname" value="{{ $user->first_name }}" required>
+                                </div>
+                                {{-- <div class="col-md-4 col-lg-4 col-sm-12 mb-1">
+                                    <input class="form-control" type="text" placeholder="Middle Name" id="mname" name="mname">
+                                </div> --}}
+                                <div class="col-md-6 col-lg-6 col-sm-12 mb-1">
+                                    <input class="form-control" type="text" placeholder="Last Name" id="lname" name="lname" value="{{ $user->last_name }}" required>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-3 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="address" class="form-label">City: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="City" id="city" name="address" required>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="address" class="form-label">Street: <strong class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control" placeholder="Street" id="street" name="street"  value="{{ $user->street }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="address" class="form-label">City: <strong class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control" placeholder="City" id="city" name="city" value="{{ $user->city }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="address" class="form-label">Provivince: <strong class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control" placeholder="Provivince" id="province" name="province" value="{{ $user->province }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-2 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="address" class="form-label">Zip-Code:&nbsp;<strong class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control" placeholder="Zip-Code" id="zipcode" name="zipcode" value="{{ $user->zip_code }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="fate" class="form-label">Bithdate: <strong class="text-danger">*</strong></label>
+                                        <input type="date" class="form-control" placeholder="Date" id="bdate" name="bdate" value="{{ $user->birthdate }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="phone" class="form-label">Phone: <strong class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone" value="{{ $user->phone_no }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="email" class="form-label">Email: <strong class="text-danger">*</strong></label>
+                                        <input type="text" class="form-control" placeholder="Email" id="email" name="email" value="{{ $user->email }}" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-3 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="address" class="form-label">Provivince: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Provivince" id="province" name="address" required>
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="uname" class="form-label">Account Type: <strong class="text-danger">*</strong></label>
+                                        {{-- <input type="text" class="form-control" placeholder="Username" id="uname" name="uname" required> --}}
+                                        <select name="type" id="type" class="form-select">
+                                            @if ( $user->role == 1)
+                                                <option value='2' >Cashier</option>
+                                                <option value='3' >Inventory</option>
+                                                <option value='1' selected>Admin</option>
+                                            @elseif ($user->role == 2)
+                                                <option value='2' selected>Cashier</option>
+                                                <option value='3' >Inventory</option>
+                                                <option value="1">Admin</option>
+                                            @else
+                                                <option value='2' >Cashier</option>
+                                                <option value='3'selected >Inventory</option>
+                                                <option value="1">Admin</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-sm-12">
+                                    <div class="mb-2">
+                                        <label for="password" class="form-label">Confirm Password </label>
+                                        <input type="password" class="form-control" placeholder="Password" id="cpassword" name="cpassword">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-2 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="address" class="form-label">Zip-Code:&nbsp;<strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Zip-Code" id="zipcode" name="address" required>
-                                </div>
+                            <hr class="mt-4">
+                            <div class="float-start">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                                    <i class="fa fa-trash"></i>&nbsp;&nbsp;Remove
+                                </button>
                             </div>
-                            <div class="col-md-3 col-lg-3 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="fate" class="form-label">Bithdate: <strong class="text-danger">*</strong></label>
-                                    <input type="date" class="form-control" placeholder="Date" id="bdate" name="bdate" required>
-                                </div>
+                            <div class="float-end">
+                                <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger"> Cancel </a>
+                                <button type="submit" class="btn btn-primary"> Submit </button>
                             </div>
-                            <div class="col-md-3 col-lg-3 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="phone" class="form-label">Phone: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="email" class="form-label">Email: <strong class="text-danger">*</strong></label>
-                                    <input type="text" class="form-control" placeholder="Email" id="email" name="email" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 col-lg-4 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="uname" class="form-label">Account Type: <strong class="text-danger">*</strong></label>
-                                    {{-- <input type="text" class="form-control" placeholder="Username" id="uname" name="uname" required> --}}
-                                    <select name="type" id="type" class="form-select">
-                                        <option value='2' selected>Cashier</option>
-                                        <option value='3' >Inventory</option>
-                                        <option value="1">Admin</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-lg-4 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="password" class="form-label">Password <strong class="text-danger">*</strong></label>
-                                    <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-lg-4 col-sm-12">
-                                <div class="mb-2">
-                                    <label for="password" class="form-label">Confirm Password <strong class="text-danger">*</strong></label>
-                                    <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="mt-4">
-                        <div class="float-start">
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-                                <i class="fa fa-trash"></i>&nbsp;&nbsp;Remove
-                            </button>
-                        </div>
-                        <div class="float-end">
-                            <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger"> Cancel </a>
-                            <button type="submit" class="btn btn-primary"> Submit </button>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                    </div>
+                @endforeach
+                
             </div>
 
             <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="ConfirmDelete" aria-hidden="true">
@@ -146,12 +159,12 @@
                         </div>
                         <div class="modal-body">
                             <h5 class="text-warning">This will permanently remove employee details.</h5>
-                            <h6 class="text-secondary">If you like to keep this employee information, just update sa account status to inactive.</h6>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form action="" method="POST">
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                            <form action="{{ route('admin_removeUser',['id'=>$id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" id="btnDel" class="btn btn-danger">Delete</button>
                             </form>
                         </div>
                     </div>
@@ -161,43 +174,44 @@
     </div>
     
     <script>
+        $(document).ready(function(e){
+            const imgInput = document.getElementById("imgInput");
+            const imgPreviewContainer = document.getElementById("imgPreview");
+            const updateImg = document.getElementById("updateImg");
+            const previewImage = imgPreviewContainer.querySelector(".imgPrev");
+            const defImage = imgPreviewContainer.querySelector(".imgDef");
+            const imgWarning = updateImg.querySelector(".imgWarning");
+
+            imgInput.addEventListener("change",function(){
+                var fileName = document.querySelector('#imgInput').value;
+                var extension = fileName.split('.').pop();
+                const img = this.files[0];
                 
-        const imgInput = document.getElementById("imgInput");
-        const imgPreviewContainer = document.getElementById("imgPreview");
-        const updateImg = document.getElementById("updateImg");
-        const previewImage = imgPreviewContainer.querySelector(".imgPrev");
-        const defImage = imgPreviewContainer.querySelector(".imgDef");
-        const imgWarning = updateImg.querySelector(".imgWarning");
-
-        imgInput.addEventListener("change",function(){
-
-            var fileName = document.querySelector('#imgInput').value;
-            var extension = fileName.split('.').pop();
-            const img = this.files[0];
-            
-            if(img){
-                if(extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "gif"){
-                    const reader = new FileReader();
-            
-                    previewImage.style.display = "block";
-                    defImage.style.display = "none";
-                    imgWarning.style.display = "none";
-            
-                    reader.addEventListener("load",function(){
-                        previewImage.setAttribute("src", this.result);
-                    });
-                    reader.readAsDataURL(img);
+                if(img){
+                    if(extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "gif"){
+                        const reader = new FileReader();
+                
+                        previewImage.style.display = "block";
+                        defImage.style.display = "none";
+                        imgWarning.style.display = "none";
+                
+                        reader.addEventListener("load",function(){
+                            previewImage.setAttribute("src", this.result);
+                        });
+                        reader.readAsDataURL(img);
+                    }else{
+                        imgInput.value = '';
+                        previewImage.style.display = "none";
+                        defImage.style.display = "block";
+                        imgWarning.style.display = "block";
+                    }
                 }else{
-                    imgInput.value = '';
                     previewImage.style.display = "none";
                     defImage.style.display = "block";
-                    imgWarning.style.display = "block";
+                    imgWarning.style.display = "none";
                 }
-            }else{
-                previewImage.style.display = "none";
-                defImage.style.display = "block";
-                imgWarning.style.display = "none";
-            }
-        });             
+            });    
+        });
+                 
     </script>
 @endsection
