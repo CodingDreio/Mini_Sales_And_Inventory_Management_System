@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('product_id')
                 ->references('product_id')->on('products')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

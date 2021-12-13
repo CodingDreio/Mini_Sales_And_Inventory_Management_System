@@ -46,12 +46,14 @@ class InventoryController extends Controller
         ]);
         $name = $request->input('product_name');
         $price = $request->input('product_price');
+        $code = $request->input('product_code');
         $quantity = $request->input('product_quantity');
         $photo = "images/".$request->input('product_photo');
         $description = $request->input('product_description');
         DB::table('products')
         ->insert([
             'product_name' => $name,
+            'code' => $code,
             'quantity' => $quantity,
             'price' => $price,
             'photo' => $photo,
@@ -103,6 +105,7 @@ class InventoryController extends Controller
             'product_quantity' => 'required'
         ]);
         $name = $request->input('product_name');
+        $code = $request->input('product_code');
         $price = $request->input('product_price');
         $quantity = $request->input('product_quantity');
         $photo = "images/".$request->input('product_photo');
@@ -111,6 +114,7 @@ class InventoryController extends Controller
         ->where('product_id', $id)
         ->update([
             'product_name' => $name,
+            'code' => $code,
             'quantity' => $quantity,
             'price' => $price,
             'photo' => $photo,

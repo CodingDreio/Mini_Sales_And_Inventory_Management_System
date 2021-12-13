@@ -13,6 +13,10 @@
                 <label for="product_name" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name" value="{{$product -> product_name}}">
             </div>
+            <div class="mb-3">
+                <label for="product_code" class="form-label">Product Code</label>
+                <input type="number" class="form-control" id="product_code" name="product_code" value="{{$product -> code}}">
+            </div>
             <div class="form-outline">
                 <label class="form-label" for="product_price">Price</label>
                 <input type="number" id="product_price" name="product_price" value="{{$product -> price}}" class="form-control" />
