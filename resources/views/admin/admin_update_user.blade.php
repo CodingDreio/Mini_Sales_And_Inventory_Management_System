@@ -18,7 +18,7 @@
                 </div>
                 @foreach ($users as $user)
                     <div class="card-body p-4">
-                        <form action="{{ route('admin_editUser',['id'=>$id]) }}" method="post">
+                        <form action="{{ route('admin_editUser',['id'=>$id]) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             
                             <div class="row">
@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="col-md-3 col-lg-3 col-sm-12">
                                     <div class="mb-2">
-                                        <label for="fate" class="form-label">Bithdate: <strong class="text-danger">*</strong></label>
+                                        <label for="fate" class="form-label">Birthdate: <strong class="text-danger">*</strong></label>
                                         <input type="date" class="form-control" placeholder="Date" id="bdate" name="bdate" value="{{ $user->birthdate }}" required>
                                     </div>
                                 </div>
@@ -130,7 +130,9 @@
                                 <div class="col-md-4 col-lg-4 col-sm-12">
                                     <div class="mb-2">
                                         <label for="password" class="form-label">Confirm Password </label>
-                                        <input type="password" class="form-control" placeholder="Password" id="cpassword" name="cpassword">
+                                        <input type="password" class="form-control" placeholder="Confirm Password" id="cpassword" name="cpassword">
+                                        <p id="errConfirm" hidden><i class="text-danger">Password didn't match.</i></p>
+                                        <p id="sucConfirm" hidden><i class="text-success">Password confirmed.</i></p>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +144,7 @@
                             </div>
                             <div class="float-end">
                                 <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger"> Cancel </a>
-                                <button type="submit" class="btn btn-primary"> Submit </button>
+                                <button type="submit" class="btn btn-primary primary-btn" id="submitUpdate"> Submit </button>
                             </div>
                         </form>
                     </div>
@@ -174,7 +176,41 @@
     </div>
     
     <script>
-        $(document).ready(function(e){
+        $(document).ready(function(){
+            $("#password").on("keyup", function(){
+                var pass = $("#password").val();
+                var btnSubmit = document.getElementById("submitUpdate");
+
+                if(pass === ''){
+                    btnSubmit.disabled = false;
+                }else{
+                    btnSubmit.disabled = true;
+                }
+            });
+
+
+            $("#cpassword").on("keyup", function(){
+                var pass = $("#password").val();
+                var cpass = $("#cpassword").val();
+                var btnSubmit = document.getElementById("submitUpdate");
+                var labelConfirm = document.getElementById("errConfirm");
+                var sucConfirm = document.getElementById("sucConfirm");
+
+                btnSubmit.disabled = true;
+                labelConfirm.hidden = true;
+                sucConfirm.hidden = true;
+                if(pass === cpass){
+                    btnSubmit.disabled = false;
+                    sucConfirm.hidden = false;
+                    labelConfirm.hidden = true;
+                }else{
+                    labelConfirm.hidden = false;
+                    sucConfirm.hidden = true;
+                }
+            });
+        });
+
+        $(document).ready(function(){
             const imgInput = document.getElementById("imgInput");
             const imgPreviewContainer = document.getElementById("imgPreview");
             const updateImg = document.getElementById("updateImg");

@@ -41,7 +41,7 @@ class AdminController extends Controller
         }
         $id = Auth::id();
         $users = DB::table('users')
-                ->where('id','!=',$id)    
+                // ->where('id','!=',$id)    
                 ->get();
         // dd($users);
         return view('admin.admin_users',['users'=>$users]);
@@ -59,7 +59,7 @@ class AdminController extends Controller
 
 
 // ======================================================================================
-//     Shows Update User Form 
+//     Shows Update User Form With Information
 // ======================================================================================
     public function updateUsers($id)
     {
@@ -75,17 +75,20 @@ class AdminController extends Controller
 // ======================================================================================
     public function storeUser(Request $request)
     {
-        
 
         // Database query here
         $img = $request->imgInput;
+        $imgName = '';
+        // dd($img);
         if($img == null){
             $imgName = 'default.png';
         }else{ 
             $imgName = $request->input('lname').'-'.time().'.'.$request->imgInput->extension();
-            $request->imgInput->move(public_path('img'),$imgName);
+            // dd($imgName);
+            $request->imgInput->move(public_path('images'),$imgName);
         }
         // dd($request->input('bdate'));
+        // dd($imgName);
         User::create([
             'first_name' => $request->input('fname'),
             'last_name' => $request->input('lname'),
@@ -113,7 +116,40 @@ class AdminController extends Controller
     public function editUser(Request $request, $id)
     {
         // Database query here
+        // Updates password first
+        $pass = $request->input('password');
+        if($pass != ''){
+            DB::table('users')
+                ->where('id',$id)
+                ->update([
+                    'password' => Hash::make( $pass),
+                ]);
+        }
+        // Updates the rest of information
 
+        $img = $request->imgInput;
+
+        if($img == null){
+            $imgName = 'default.png';
+        }else{ 
+            $imgName = $request->input('lname').'-'.time().'.'.$img->extension();
+            $request->imgInput->move(public_path('images'),$imgName);
+        }
+        DB::table('users')
+                ->where('id',$id)
+                ->update([
+                    'first_name' => $request->input('fname'),
+                    'last_name' => $request->input('lname'),
+                    'street' => $request->input('street'),
+                    'city' => $request->input('city'),
+                    'province' => $request->input('province'),
+                    'zip_code' => $request->input('zipcode'),
+                    'birthdate' => $request->input('bdate'),
+                    'phone_no' => $request->input('phone'),
+                    'photo' => $imgName,
+                    'role' => $request->input('type'),
+                    'email' => $request->input('email'),
+                ]);
         
 
         // Redirect to view users
@@ -130,7 +166,7 @@ class AdminController extends Controller
         DB::table('users')
             ->where('id','=',$id)
             ->delete();
-            
+
         // dd("HEYYY");
         // Redirect to view users
         return redirect()->route('admin_viewUsers');
@@ -142,13 +178,31 @@ class AdminController extends Controller
 // ======================================================================================
     public function searchUsers($keyword)
     {
-        $id = Auth::id();
-        $users = DB::table('users')
-                ->where('id','!=',$id)    
-                ->where('first_name','LIKE','%'.$keyword.'%') 
-                ->orWhere('last_name','LIKE','%'.$keyword.'%')   
+        $key = strtolower($keyword);
+        
+        if($key == 'admin' || $key == 'cashier' || $key == 'inventory'){
+            if($key == 'admin'){
+                $key = '1';
+            }elseif($key == 'cashier'){
+                $key = '2';
+            }elseif($key == 'inventory'){
+                $key = '3';
+            }
+            $users = DB::table('users')
+                // ->where('id','!=',$id)    
+                ->where('role','=',$key)  
                 ->distinct()
                 ->get();
+        }else {
+            // $id = Auth::id();
+            $users = DB::table('users')
+                    // ->where('id','!=',$id)    
+                    ->where('first_name','LIKE','%'.$keyword.'%') 
+                    ->orWhere('last_name','LIKE','%'.$keyword.'%')   
+                    ->distinct()
+                    ->get();
+        }
+        
         $str='';
         foreach ($users as $user) {
             if ($user->role == 2){
@@ -209,9 +263,9 @@ class AdminController extends Controller
     {
         // Database query here
         
-        $id = Auth::id();
+        // $id = Auth::id();
         $users = DB::table('users')
-                ->where('id','!=',$id)    
+                // ->where('id','!=',$id)    
                 ->get();
         $str='';
         foreach ($users as $user) {

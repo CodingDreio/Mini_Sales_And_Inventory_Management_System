@@ -148,6 +148,17 @@
   color: #3b3b3b;
 }
 
+.opt-link{
+    color: #32502E;
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+.opt-link:hover{
+    color: #558a4e;
+    font-size: 24pt;
+}
+
 @media screen and (max-width: 768px) {
   .cashier-opt-img{
     height: auto;
