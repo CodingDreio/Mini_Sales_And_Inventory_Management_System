@@ -36,7 +36,7 @@
                             if (!e) var e = window.event;
                             e.cancelBubble = true;
                             if (e.stopPropagation) e.stopPropagation();
-                            location.href = 'inventory/delete/{{$prod -> product_id}}';">
+                            if (confirm('Are you sure you want to delete?')) location.href = 'inventory/delete/{{$prod -> product_id}}';">
                         Delete</button>
                         <button type="button" class="primary-button px-3 ms-1 submit-button" onclick="
                             if (!e) var e = window.event;

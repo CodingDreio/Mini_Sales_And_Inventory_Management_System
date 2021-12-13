@@ -26,6 +26,12 @@
         <label class="logo"><img src="{{ asset('images/prodigy_sales_white.svg') }}" class="prodigy-sales-icon">Prodigy Sales</label>
         <ul>
             <li>
+                <a href="{{ route('inventory') }}">Products</a>
+            </li>
+            <li>
+                <a href="{{ route('stock') }}">Stocks</a>
+            </li>
+            <li>
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
