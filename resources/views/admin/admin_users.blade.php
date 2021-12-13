@@ -3,7 +3,7 @@
     <div class="container p-3">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-              <a class="navbar-brand" href="{{ route('admin_viewUsers') }}"><h2 class="header-text"><i class="fa fa-users"></i>&nbsp;&nbsp;Users</h2></a>
+              <a class="navbar-brand" href="{{ route('admin_viewUsers') }}"><h2 class="header-text"><i class="fa fa-users"></i>&nbsp;&nbsp;Users/Employees</h2></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>

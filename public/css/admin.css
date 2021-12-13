@@ -2,7 +2,7 @@
 .employee-img{
     width: 50%;
     height: auto;
-}
+} 
 
 .empUpdateLink{
     text-decoration: none;
@@ -38,4 +38,21 @@
 .imgWarning{
     margin: auto;
     display: none;
+}
+
+
+.opt-img{
+    height: auto;
+    width: 50%;
+}
+
+
+.opt-link{
+    color: #32502E;
+    font-size: 24pt;
+    font-weight: bold;
+}
+.opt-link:hover{
+    color: #558a4e;
+    font-size: 24pt;
 }

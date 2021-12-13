@@ -50,11 +50,6 @@
                 <li style="border-right: 1px solid white;"></li>
                 <li><a href="{{ route('inventory') }}"><i class="fa fa-warehouse"></i>&nbsp;&nbsp;Inventory</a></li>
                 <li style="border-right: 1px solid white;"></li>
-                <li><a href="{{ route('stock') }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Sales</a></li>
-                <li style="border-right: 1px solid white;"></li>
-                <li><a href="{{ route('cashier') }}"><i class="fa fa-window-maximize"></i>&nbsp;&nbsp;POS</a></li>
-                <li style="border-right: 1px solid white;"></li>
-            
                 @if (request()->routeIs('admin_viewUsers'))
                     <li><a class="active" href="{{ route('admin_viewUsers') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Users</a></li>
                     <li style="border-right: 1px solid white;"></li>
@@ -62,6 +57,8 @@
                     <li><a href="{{ route('admin_viewUsers') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Users</a></li>
                     <li style="border-right: 1px solid white;"></li>
                 @endif
+                <li><a href="{{ route('cashier') }}"><i class="fa fa-window-maximize"></i>&nbsp;&nbsp;POS</a></li>
+                <li style="border-right: 1px solid white;"></li>
             @endif
             <li>
                 <a href="{{ route('logout') }}"

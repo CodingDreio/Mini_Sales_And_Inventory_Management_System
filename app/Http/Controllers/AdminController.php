@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -69,8 +73,31 @@ class AdminController extends Controller
 // ======================================================================================
     public function storeUser(Request $request)
     {
-        // Database query here
+        
 
+        // Database query here
+        $img = $request->imgInput;
+        if($img == null){
+            $imgName = 'default.png';
+        }else{ 
+            $imgName = $request->input('lname').'-'.time().'.'.$request->imgInput->extension();
+            $request->imgInput->move(public_path('img'),$imgName);
+        }
+
+        User::create([
+            'first_name' => $request->input('fname'),
+            'last_name' => $request->input('lname'),
+            'street' => $request->input('street'),
+            'city' => $request->input('city'),
+            'province' => $request->input('province'),
+            'zip_code' => $request->input('zipcode'),
+            'birthdate' => $request->input('bdate'),
+            'phone_no' => $request->input('phone'),
+            'photo' => $imgName,
+            'role' => $request->input('type'),
+            'email' => $request->input('email'),
+            'password' => Hash::make( $request->get('password')),
+        ]);
 
 
         // Redirect to view users
