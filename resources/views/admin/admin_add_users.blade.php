@@ -13,7 +13,7 @@
             <div class="card w-75 m-auto shadow-lg">
                 <div class="card-header pt-4 ps-4 pe-4">
                     <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger float-end"><i class="fa fa-times-circle"></i> </a>
-                    <h4 class="text-center text-primary">Add Users</h4>
+                    <h4 class="text-center header-text">Add Users</h4>
                     <h6 class="text-secondary">Fields with (<span class="text-danger">*</span>) is required.</h6>
                 </div>
                 <div class="card-body p-4">
@@ -47,9 +47,6 @@
                             <div class="col-md-6 col-lg-6 col-sm-12 mb-1">
                                 <input class="form-control" type="text" placeholder="First Name" id="fname" name="fname" required>
                             </div>
-                            {{-- <div class="col-md-4 col-lg-4 col-sm-12 mb-1">
-                                <input class="form-control" type="text" placeholder="Middle Name" id="mname" name="mname">
-                            </div> --}}
                             <div class="col-md-6 col-lg-6 col-sm-12 mb-1">
                                 <input class="form-control" type="text" placeholder="Last Name" id="lname" name="lname" required>
                             </div>
@@ -69,7 +66,7 @@
                             </div>
                             <div class="col-md-6 col-lg-3 col-sm-12">
                                 <div class="mb-2">
-                                    <label for="address" class="form-label">Provivince: <strong class="text-danger">*</strong></label>
+                                    <label for="address" class="form-label">Province: <strong class="text-danger">*</strong></label>
                                     <input type="text" class="form-control" placeholder="Provivince" id="province" name="province" required>
                                 </div>
                             </div>
@@ -120,13 +117,15 @@
                                 <div class="mb-2">
                                     <label for="password" class="form-label">Confirm Password <strong class="text-danger">*</strong></label>
                                     <input type="password" class="form-control" placeholder="Password" id="cpassword" name="cpassword" required>
+                                    <p id="errConfirm" hidden><i class="text-danger">Password didn't match.</i></p>
+                                    <p id="sucConfirm" hidden><i class="text-success">Password confirmed.</i></p>
                                 </div>
                             </div>
                         </div>
                         <hr class="mt-4">
                         <div class="float-end">
                             <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger"> Cancel </a>
-                            <button type="submit" class="btn btn-primary" id="submitAdd" disabled> Submit </button>
+                            <button type="submit" class="btn primary-btn" id="submitAdd" disabled> Submit </button>
                         </div>
                     </form>
                 </div>
@@ -180,19 +179,24 @@
                 var pass = $("#password").val();
                 var cpass = $("#cpassword").val();
                 var btnSubmit = document.getElementById("submitAdd");
+                var labelConfirm = document.getElementById("errConfirm");
+                var sucConfirm = document.getElementById("sucConfirm");
 
                 btnSubmit.disabled = true;
+                labelConfirm.hidden = true;
+                sucConfirm.hidden = true;
                 if(pass === cpass){
                     btnSubmit.disabled = false;
+                    sucConfirm.hidden = false;
+                    labelConfirm.hidden = true;
+                }else{
+                    labelConfirm.hidden = false;
+                    sucConfirm.hidden = true;
                 }
             });
         });
 
-        $(document).ready(function(){
-            $("#email").on("keyup", function(){
-                
-            });
-        });
+       
         
     </script>
 @endsection
