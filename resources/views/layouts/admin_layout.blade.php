@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login: Prodigy Sales</title>
+    <title>Admin: Prodigy Sales</title>
     
     {{-- =================================================================== --}}
     {{-- Stylesheets --}}
@@ -41,10 +41,11 @@
             @if (request()->routeIs('admin'))
                 <li><a class="active" href="#"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
             @else
-                <li><a class="" href="#"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
+                <li><a class="" href="{{ route('home') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
             @endif
-            <li><a href="#"><i class="fa fa-warehouse"></i>&nbsp;&nbsp;Inventory</a></li>
-            <li><a href="#"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Sales</a></li>
+            <li><a href="{{ route('inventory') }}"><i class="fa fa-warehouse"></i>&nbsp;&nbsp;Inventory</a></li>
+            <li><a href="{{ route('stock') }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Sales</a></li>
+            <li><a href="{{ route('cashier') }}"><i class="fa fa-window-maximize"></i>&nbsp;&nbsp;POS</a></li>
             
             @if (request()->routeIs('admin_viewUsers'))
                 <li><a class="active" href="{{ route('admin_viewUsers') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Users</a></li>

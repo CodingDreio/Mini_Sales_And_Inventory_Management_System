@@ -13,7 +13,7 @@
                     <div class="input-group">
                         <input id="searchUser" class="form-control mt-1" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                         {{-- <span class="btn"><i class="fas fa-search"></i></span> --}}
-                        <button class="btn btn-primary mt-1 primary-btn" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-primary mt-1" style="background-color: #1F4068;" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                         <a href="{{ route('admin_addUsers') }}" class="btn btn-primary form-inline ms-2 mt-1 primary-btn" id="btn-plus-label"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Add Users</a>
                         <a href="{{ route('admin_addUsers') }}" class="btn btn-primary form-inline ms-2 mt-1 primary-btn" id="btn-plus"><i class="fa fa-plus-circle"></i></a>
                     </div>
@@ -25,13 +25,13 @@
 
         <section id="list">
             <div>
-                <div class="row">
+                <div class="row" id="userListContainer">
                     @foreach ($users as $user)
                         <div class="col-md-12 col-lg-4 col-sm-12 mt-4 d-flex">
                             <div class="card flex-fill shadow-lg">
                                 <div class="card-body">
                                     <div class="text-center">
-                                        <img src="{{ asset('images/'.$user->photo) }}" alt="" class="employee-img" alt="Photo">
+                                        <img src="{{ asset("images/".$user->photo) }}" alt="" class="employee-img" alt="Photo">
                                     </div>
                                     <br>
                                     <div class="text-center">
@@ -84,26 +84,30 @@
                 if(keyword==""){
                     $.ajax({
                         type:"get",
-                        url:"/admin/search_user/"+keyword,
+                        url:"/admin/fetch_user",
                         datatype:"json",
                         success:function(response){
-                            
+                            $('#userListContainer').html('');
+                            $('#userListContainer').append(response.str);
                         }
                     });
                 }else{
                     $.ajax({
-                    type:"get",
-                    url:"/admin/search_user/"+keyword,
-                    datatype:"json",
-                    success:function(response){
-                        
-                    }
-                });
+                        type:"get",
+                        url:"/admin/search_user/"+keyword,
+                        datatype:"json",
+                        success:function(response){
+                            $.each(response.users, function(key, str){
+                            $('#userListContainer').html('');
+                            $('#userListContainer').append(response.str);
+                            });
+                        }
+                    });
                 }
                 
             });
         });
-
+        
 
         var w = window.innerWidth;
         var x = document.getElementById("btn-plus-label");

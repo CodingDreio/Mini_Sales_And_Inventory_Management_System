@@ -25,6 +25,11 @@
         </label>
         <label class="logo"><img src="{{ asset('images/prodigy_sales_white.svg') }}" class="prodigy-sales-icon">Prodigy Sales</label>
         <ul>
+            @if (Auth::user()->role == 1)
+                <li>
+                    <a href="{{ route('home') }}">Home</a>
+                </li>
+            @endif
             <li>
                 <a href="{{ route('inventory') }}">Products</a>
             </li>
