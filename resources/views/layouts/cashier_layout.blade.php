@@ -43,6 +43,13 @@
             </label>
             <label class="logo"><img src="{{ asset('images/prodigy_sales_white.svg') }}" class="prodigy-sales-icon">Prodigy Sales</label>
             <ul>
+                @if (request()->routeIs('cashier'))
+                    @if (Auth::user()->role == 1)
+                        <li><a href="{{ route('home') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Admin Dashboard</a></li>
+                        <li style="border-right: 1px solid white;"></li>
+                    @endif
+                @endif
+
                 @if (request()->routeIs('cashierNew'))
                     {{-- <li><a href="{{ route('cashier') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
                     <li style="border-right: 1px solid white;"></li> --}}

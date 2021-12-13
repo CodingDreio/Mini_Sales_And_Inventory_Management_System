@@ -40,14 +40,14 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="primary-button px-5 mb-2">Log in</button>
-                                <br>
+                                {{-- <br>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Password?') }}
                                     </a>
                                 @endif
                                 <hr>
-                                <button type="button" class="tertiary-button px-5 mb-2">Create a New Account</button>
+                                <button type="button" class="tertiary-button px-5 mb-2">Create a New Account</button> --}}
                             </div>
                         </div>
                     </div>

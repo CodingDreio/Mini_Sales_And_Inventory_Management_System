@@ -1,0 +1,41 @@
+
+.employee-img{
+    width: 50%;
+    height: auto;
+}
+
+.empUpdateLink{
+    text-decoration: none;
+    color: rgb(49, 49, 49);
+}
+
+.header-text{
+    color: #32502E;
+}
+
+.header-link{
+    text-decoration: none;
+}
+
+.primary-btn {
+    background-color: #1F4068;
+}
+
+.primary-btn:hover {
+    background-color: #285ea0;
+}
+
+.imgPrev{
+    margin: auto;
+    display: none;
+}
+
+.imgDef{
+    margin: auto;
+    display: block;
+}
+
+.imgWarning{
+    margin: auto;
+    display: none;
+}
