@@ -288,6 +288,31 @@ input[type="search"]:focus {
     box-shadow: 0 2px 5px #0000001a;
 }
 
+//INVENTORY SALES
+.sales-row {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px #0000001a;
+}
+
+.sales-row:hover {
+    background-color: #c8e7ba;
+}
+
+.sales-invoice {
+    margin: 0;
+}
+
+.sales-price {
+    margin: 0;
+    font-size: 1.325rem;
+    color: #0d8109;
+}
+
+.sales-details {
+    margin: 0;
+}
+
 
 // MEDIA QUERIES
 

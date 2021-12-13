@@ -14,6 +14,10 @@
                 <input type="text" class="form-control" id="product_name" name="product_name" value="">
             </div>
             <div class="form-outline">
+                <label class="form-label" for="product_code">Product Code</label>
+                <input type="number" id="product_code" name="product_code" value="" class="form-control" />
+            </div>
+            <div class="form-outline">
                 <label class="form-label" for="product_price">Price</label>
                 <input type="number" id="product_price" name="product_price" value="" class="form-control" />
             </div>

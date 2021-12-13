@@ -8,10 +8,14 @@
             <div class="d-flex justify-content-center mb-2">
                 <img src="../../{{$product->photo}}" class="edit-photo align-center" id="photo_prod1">
             </div>
-            <input type="file" class="d-block mb-2 px-0 w-50 w-md-100" id="product_photo" name="product_photo" accept="image/*" onchange="document.getElementById('photo_prod1').src =  '../../images/'+this.value.split('\\').pop().split('/').pop();">
+            <input type="file" class="d-block mb-2 px-0 w-50 w-md-100" id="product_photo" value="{{$product->photo}}" name="product_photo" accept="image/*" onchange="document.getElementById('photo_prod1').src =  '../../images/'+this.value.split('\\').pop().split('/').pop();">
             <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name" value="{{$product -> product_name}}">
+            </div>
+            <div class="mb-3">
+                <label for="product_code" class="form-label">Product Code</label>
+                <input type="number" class="form-control" id="product_code" name="product_code" value="{{$product -> code}}">
             </div>
             <div class="form-outline">
                 <label class="form-label" for="product_price">Price</label>

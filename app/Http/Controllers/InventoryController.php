@@ -46,12 +46,14 @@ class InventoryController extends Controller
         ]);
         $name = $request->input('product_name');
         $price = $request->input('product_price');
+        $code = $request->input('product_code');
         $quantity = $request->input('product_quantity');
         $photo = "images/".$request->input('product_photo');
         $description = $request->input('product_description');
         DB::table('products')
         ->insert([
             'product_name' => $name,
+            'code' => $code,
             'quantity' => $quantity,
             'price' => $price,
             'photo' => $photo,
@@ -103,8 +105,10 @@ class InventoryController extends Controller
             'product_quantity' => 'required'
         ]);
         $name = $request->input('product_name');
+        $code = $request->input('product_code');
         $price = $request->input('product_price');
         $quantity = $request->input('product_quantity');
+        $photo = "images/".$request->input('product_photo');
         $description = $request->input('product_description');
 
         if($request->input('product_photo') != null){
@@ -128,7 +132,6 @@ class InventoryController extends Controller
                 'product_description' => $description
                 ]);
         }
-        
         $products = DB::select('select * from products');
         //dd($photo);
         return redirect()->route('inventory');
@@ -227,5 +230,12 @@ class InventoryController extends Controller
             ->get();
         //dd($products);
         return view('inventory.search_stock', ['product' => $products]);
+    }
+
+    public function sales_index()
+    {
+        //
+        $sales= DB::select('select * from sales_reports');
+        return view('inventory_viewSales', ['sales' => $sales]);
     }
 }
