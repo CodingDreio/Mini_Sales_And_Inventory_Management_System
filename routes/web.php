@@ -56,3 +56,5 @@ Route::get('/inventory/search', [InventoryController::class, 'search'])->name('i
     Route::post('/inventory/add_stock/{id}', [InventoryController::class, 'add_stock'])->name('add_stock');
     Route::post('/inventory/deduct_stock/{id}', [InventoryController::class, 'deduct_stock'])->name('deduct_stock');
     Route::get('/inventory/search_stock', [InventoryController::class, 'search_stock'])->name('search_stock');
+    //--Inventory Sales
+    Route::get('/inventory_sales', [InventoryController::class, 'sales_index'])->name('inventory_sales');

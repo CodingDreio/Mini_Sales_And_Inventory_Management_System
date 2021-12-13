@@ -10,7 +10,7 @@
             <div class="input-group mb-2">
                 <input type="search" class="form-control search-bar" placeholder="Search" aria-label="Search" id="product_search" name="product_search"
                     aria-describedby="search-addon" />
-                <button type="button" class="search-button px-4" onclick="location.href = 'inventory/search';">search</button>
+                <button type="submit" class="search-button px-4" onclick="location.href = 'inventory/search';">search</button>
             </div>
         </form>
         <div class="product-list">

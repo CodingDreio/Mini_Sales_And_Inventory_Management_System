@@ -9,7 +9,7 @@
             <div class="input-group mb-2">
                 <input type="search" class="form-control search-bar" placeholder="Search" aria-label="Search" id="stock_search" name="stock_search"
                     aria-describedby="search-addon" />
-                <button type="button" class="search-button px-4" onclick="location.href = {{route('search_stock')}}">search</button>
+                <button type="submit" class="search-button px-4" onclick="location.href = 'inventory/search_stock';">search</button>
             </div>
         </form>
         <div class="row product-card-view d-flex justify-content-center">

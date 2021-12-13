@@ -32,6 +32,9 @@
                 <a href="{{ route('stock') }}">Stocks</a>
             </li>
             <li>
+                <a href="{{ route('inventory_sales') }}">Sales</a>
+            </li>
+            <li>
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">

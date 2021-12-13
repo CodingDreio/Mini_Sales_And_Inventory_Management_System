@@ -215,4 +215,11 @@ class InventoryController extends Controller
         //dd($products);
         return view('inventory.search_stock', ['product' => $products]);
     }
+
+    public function sales_index()
+    {
+        //
+        $sales= DB::select('select * from sales_reports');
+        return view('inventory_viewSales', ['sales' => $sales]);
+    }
 }
