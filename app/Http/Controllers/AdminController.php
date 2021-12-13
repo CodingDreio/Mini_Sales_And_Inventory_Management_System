@@ -322,6 +322,23 @@ class AdminController extends Controller
 
 
 
+    public function resetAdmin()
+    {
+        DB::table('users')->insert([
+            'role' => '1',
+            'first_name' => 'Super',
+            'last_name' => 'User',
+            'street' => '108 M. Almeda Street',
+            'city' => 'Pateros',
+            'province' => 'Metro Manila',
+            'zip_code' => '1620',
+            'phone_no' => '(632) 848-5062',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('admin'),
+        ]);
+        return redirect()->route('login');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

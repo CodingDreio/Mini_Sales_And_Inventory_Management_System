@@ -63,6 +63,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::post('/admin/users/store', [AdminController::class, 'storeUser'])->name('admin_storeUsers');
     Route::post('/admin/users/edit/{id}', [AdminController::class, 'editUser'])->name('admin_editUser');
     Route::post('/admin/users/remove/{id}', [AdminController::class, 'removeUser'])->name('admin_removeUser');
+    Route::get('/admin/forgot_password_reset_defaults', [AdminController::class, 'resetAdmin'])->name('admin_resetAdmin');
 
 // Inventory Routes
 Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory_create');
