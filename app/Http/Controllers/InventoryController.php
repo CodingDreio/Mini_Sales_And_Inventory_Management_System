@@ -105,17 +105,30 @@ class InventoryController extends Controller
         $name = $request->input('product_name');
         $price = $request->input('product_price');
         $quantity = $request->input('product_quantity');
-        $photo = "images/".$request->input('product_photo');
         $description = $request->input('product_description');
-        DB::table('products')
-        ->where('product_id', $id)
-        ->update([
-            'product_name' => $name,
-            'quantity' => $quantity,
-            'price' => $price,
-            'photo' => $photo,
-            'product_description' => $description
-            ]);
+
+        if($request->input('product_photo') != null){
+            $photo = "images/".$request->input('product_photo');
+            DB::table('products')
+            ->where('product_id', $id)
+            ->update([
+                'product_name' => $name,
+                'quantity' => $quantity,
+                'price' => $price,
+                'photo' => $photo,
+                'product_description' => $description
+                ]);
+        }else{
+            DB::table('products')
+            ->where('product_id', $id)
+            ->update([
+                'product_name' => $name,
+                'quantity' => $quantity,
+                'price' => $price,
+                'product_description' => $description
+                ]);
+        }
+        
         $products = DB::select('select * from products');
         //dd($photo);
         return redirect()->route('inventory');
