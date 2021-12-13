@@ -117,7 +117,7 @@ class InventoryController extends Controller
                 'price' => $price,
                 'photo' => $photo,
                 'product_description' => $description
-                ]);
+                ]); 
         }else{
             DB::table('products')
             ->where('product_id', $id)
