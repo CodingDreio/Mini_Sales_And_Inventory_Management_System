@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             'province' => 'Metro Manila',
             'zip_code' => '1550',
             'phone_no' => '+63(2)5334824',
-            'email' => 'coc4andrey@gmail.com',
+            'email' => 'coc2andrey@gmail.com',
             'password' => Hash::make('inventory'),
         ]);
         DB::table('users')->insert([
