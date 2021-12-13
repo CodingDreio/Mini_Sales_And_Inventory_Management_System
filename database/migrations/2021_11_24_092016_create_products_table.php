@@ -16,11 +16,6 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id('product_id');
             $table->string('code',30)->unique()->nullable();
-            $table->integer('category_id')
-                    ->foreignId('category_id')
-                    ->constrained('categories')
-                    ->onUpdate('cascade')
-                    ->nullable();
             $table->string('product_name',30);
             $table->decimal('price',11,2);
             $table->integer('quantity');

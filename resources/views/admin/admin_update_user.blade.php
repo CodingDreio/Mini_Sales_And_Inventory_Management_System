@@ -207,6 +207,10 @@
                     labelConfirm.hidden = false;
                     sucConfirm.hidden = true;
                 }
+                if(cpass === ''){
+                    sucConfirm.hidden = true;
+                    labelConfirm.hidden = true;
+                }
             });
         });
 
