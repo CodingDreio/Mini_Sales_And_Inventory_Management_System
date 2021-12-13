@@ -51,6 +51,8 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::post('/cashier/complete/{id}', [CashierController::class, 'completePurchase'])->name('completePurchase');
     Route::post('/cashier/add_order/{id}', [CashierController::class, 'addOrder'])->name('addOrder');
     Route::get('/cashier/fetch_order/{id}', [CashierController::class, 'fetchOrder'])->name('fetchOrder');
+    Route::get('/cashier/fetch_sales_by_id/{id}', [CashierController::class, 'fecthOrdersByID'])->name('fecthOrdersByID');
+    Route::get('/cashier/fetch_sales_by_date/{date}', [CashierController::class, 'fetchSalesByDate'])->name('fetchSalesByDate');
 
 // Admin Routes 
     Route::get('/admin/users', [AdminController::class, 'viewUsers'])->name('admin_viewUsers');

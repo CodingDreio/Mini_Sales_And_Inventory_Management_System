@@ -289,6 +289,7 @@
                         );
                         
                         $("#vatSale").text(response.vatableSale);
+                        console.log(response.vatableSale);
                         $("#vatAmount").text(response.vat);
                         $("#totalPrice").text(response.amount);
                         $("#amount").text(response.amount);
