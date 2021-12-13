@@ -25,7 +25,11 @@
     <script src="{{ asset('js/font-awesome-all.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 </head>
-<body>
+    @if (request()->routeIs('admin'))
+        <body  class="log-in-background">
+    @else
+        <body>
+    @endif
     
     {{-- =================================================================== --}}
     {{-- Navigation --}}
@@ -40,17 +44,24 @@
         <ul>
             @if (request()->routeIs('admin'))
                 <li><a class="active" href="#"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
+                <li style="border-right: 1px solid white;"></li>
             @else
                 <li><a class="" href="{{ route('home') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a></li>
-            @endif
-            <li><a href="{{ route('inventory') }}"><i class="fa fa-warehouse"></i>&nbsp;&nbsp;Inventory</a></li>
-            <li><a href="{{ route('stock') }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Sales</a></li>
-            <li><a href="{{ route('cashier') }}"><i class="fa fa-window-maximize"></i>&nbsp;&nbsp;POS</a></li>
+                <li style="border-right: 1px solid white;"></li>
+                <li><a href="{{ route('inventory') }}"><i class="fa fa-warehouse"></i>&nbsp;&nbsp;Inventory</a></li>
+                <li style="border-right: 1px solid white;"></li>
+                <li><a href="{{ route('stock') }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Sales</a></li>
+                <li style="border-right: 1px solid white;"></li>
+                <li><a href="{{ route('cashier') }}"><i class="fa fa-window-maximize"></i>&nbsp;&nbsp;POS</a></li>
+                <li style="border-right: 1px solid white;"></li>
             
-            @if (request()->routeIs('admin_viewUsers'))
-                <li><a class="active" href="{{ route('admin_viewUsers') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Users</a></li>
-            @else
-                <li><a href="{{ route('admin_viewUsers') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Users</a></li>
+                @if (request()->routeIs('admin_viewUsers'))
+                    <li><a class="active" href="{{ route('admin_viewUsers') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Users</a></li>
+                    <li style="border-right: 1px solid white;"></li>
+                @else
+                    <li><a href="{{ route('admin_viewUsers') }}"><i class="fa fa-users"></i>&nbsp;&nbsp;Users</a></li>
+                    <li style="border-right: 1px solid white;"></li>
+                @endif
             @endif
             <li>
                 <a href="{{ route('logout') }}"

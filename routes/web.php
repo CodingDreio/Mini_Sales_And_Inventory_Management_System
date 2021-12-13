@@ -18,7 +18,18 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    if(Auth::user() != NULL){
+        if(Auth::user()->role == 1){
+            return redirect()->route('home');
+        }elseif(Auth::user()->role == 2){
+            return redirect()->route('cashier');
+        }elseif(Auth::user()->role == 3){
+            return redirect()->route('inventory');
+        }
+    }else{
+
+        return view('auth.login');
+    }
 });
 
 Auth::routes();
