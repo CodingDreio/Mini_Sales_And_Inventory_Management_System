@@ -39,9 +39,8 @@ class AdminController extends Controller
         if($userId == null){
             return redirect()->route('login');
         }
-        $id = Auth::id();
-        $users = DB::table('users')
-                // ->where('id','!=',$id)    
+        
+        $users = DB::table('users')   
                 ->get();
         // dd($users);
         return view('admin.admin_users',['users'=>$users]);
@@ -101,7 +100,7 @@ class AdminController extends Controller
             'photo' => $imgName,
             'role' => $request->input('type'),
             'email' => $request->input('email'),
-            'password' => Hash::make( $request->get('password')),
+            'password' => Hash::make( $request->get('password') ),
         ]);
 
 
