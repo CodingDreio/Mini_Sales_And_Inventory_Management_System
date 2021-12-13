@@ -165,6 +165,40 @@ input[type="search"]:focus {
     cursor: pointer;
 }
 
+.product-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px #0000001a;
+    height: fit-content;
+}
+
+.product-card:hover {
+    background-color: #c8e7ba;
+}
+
+.product-card-img {
+    height: 12rem;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.product-card-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.product-card-quantity {
+    font-size: 20px;
+    color: #0d8109;
+    font-weight: 500;
+    margin: 0;
+}
+
 .product-pic {
     height: 4.5rem;
     width: 4.5rem;
@@ -250,7 +284,8 @@ input[type="search"]:focus {
     width: 15rem;
     height: 15rem;
     border-radius: 20%;
-    object-fit: cover; 
+    object-fit: cover;
+    box-shadow: 0 2px 5px #0000001a;
 }
 
 

@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-center mb-2">
                 <img src="../../{{$product->photo}}" class="edit-photo align-center" id="photo_prod1">
             </div>
-            <input type="file" class="d-block mb-2 px-0" id="product_photo" name="product_photo" accept="image/*" onchange="document.getElementById('photo_prod1').src =  '../../images/'+this.value.split('\\').pop().split('/').pop();">
+            <input type="file" class="d-block mb-2 px-0 w-50 w-md-100" id="product_photo" name="product_photo" accept="image/*" onchange="document.getElementById('photo_prod1').src =  '../../images/'+this.value.split('\\').pop().split('/').pop();">
             <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name" value="{{$product -> product_name}}">
@@ -26,8 +26,11 @@
                 <textarea class="form-control" value="{{$product -> product_description}}" id="product_description" name="product_description" rows="3">{{$product -> product_description}}</textarea>
             </div>
             <div class="d-flex justify-content-between">
-                <button class="secondary-button px-md-5 px-3" onclick="javascript:window.history.back(-1);return false;">Cancel</button>
-                <button class="primary-button px-md-5 px-3" type="submit">Submit</button>
+                <button class="tertiary-button px-md-5 px-2" onclick="javascript:window.history.back(-1);return false;">Cancel</button>
+                <div>
+                    <button class="secondary-button px-md-5 px-2" onclick="if (confirm('Are you sure you want to delete?')) location.href = '../../inventory/delete/{{$product -> product_id}}';">Delete</button>
+                    <button class="primary-button px-md-5 px-2" type="submit">Submit</button>
+                </div>
             </div>
         </form>
     </div>
