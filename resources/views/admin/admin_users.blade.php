@@ -11,7 +11,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"> </ul>
                 <form class="d-flex">
                     <div class="input-group">
-                        <input class="form-control mt-1" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                        <input id="searchUser" class="form-control mt-1" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                         {{-- <span class="btn"><i class="fas fa-search"></i></span> --}}
                         <button class="btn btn-primary mt-1 primary-btn" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                         <a href="{{ route('admin_addUsers') }}" class="btn btn-primary form-inline ms-2 mt-1 primary-btn" id="btn-plus-label"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Add Users</a>
@@ -76,7 +76,35 @@
         </section>
     </div>
 
-    <script type="text/javascript">
+    <script>
+
+        $(document).ready(function(){
+            $("#searchUser").on("keyup", function(){
+                var keyword = $("#searchUser").val();
+                if(keyword==""){
+                    $.ajax({
+                        type:"get",
+                        url:"/admin/search_user/"+keyword,
+                        datatype:"json",
+                        success:function(response){
+                            
+                        }
+                    });
+                }else{
+                    $.ajax({
+                    type:"get",
+                    url:"/admin/search_user/"+keyword,
+                    datatype:"json",
+                    success:function(response){
+                        
+                    }
+                });
+                }
+                
+            });
+        });
+
+
         var w = window.innerWidth;
         var x = document.getElementById("btn-plus-label");
         var y = document.getElementById("btn-plus");
@@ -107,6 +135,10 @@
                 x.style.display = "inline-block";
                 y.style.display = "none";
             }
-        })
+        });
+
+
+
+
     </script>
 @endsection

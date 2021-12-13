@@ -57,6 +57,8 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 // Admin Routes 
     Route::get('/admin/users', [AdminController::class, 'viewUsers'])->name('admin_viewUsers');
     Route::get('/admin/users/add', [AdminController::class, 'addUsers'])->name('admin_addUsers');
+    Route::get('/admin/fetch_user', [AdminController::class, 'fetchUsers'])->name('admin_fetchUsers');
+    Route::get('/admin/search_user/{keyword}', [AdminController::class, 'searchUsers'])->name('admin_searchUsers');
     Route::get('/admin/users/update/{id}', [AdminController::class, 'updateUsers'])->name('admin_updateUsers');
     Route::post('/admin/users/store', [AdminController::class, 'storeUser'])->name('admin_storeUsers');
     Route::post('/admin/users/edit/{id}', [AdminController::class, 'editUser'])->name('admin_editUser');

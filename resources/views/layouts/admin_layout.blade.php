@@ -9,10 +9,21 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Login: Prodigy Sales</title>
+    
+    {{-- =================================================================== --}}
+    {{-- Stylesheets --}}
+    {{-- =================================================================== --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap_5_1_3.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.scss') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+
+    {{-- =================================================================== --}}
+    {{-- Scripts --}}
+    {{-- =================================================================== --}}
+    <script src="{{ asset('js/v5.1.0_bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/font-awesome-all.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 </head>
 <body>
     
@@ -61,12 +72,5 @@
     <main class="py-4">
         @yield('content')
     </main>
-
-    {{-- =================================================================== --}}
-    {{-- Scripts --}}
-    {{-- =================================================================== --}}
-    <script src="{{ asset('js/v5.1.0_bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/font-awesome-all.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 </body>
 </html>

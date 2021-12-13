@@ -92,6 +92,20 @@ class AdminController extends Controller
     }
 
 
+// ======================================================================================
+//     Store new user account to database
+// ======================================================================================
+    public function searchUser($keyword)
+    {
+        // Database query here
+
+        
+
+        // Redirect to view users
+        // return redirect()->route('admin_viewUsers');
+    }
+
+
 
 
 
