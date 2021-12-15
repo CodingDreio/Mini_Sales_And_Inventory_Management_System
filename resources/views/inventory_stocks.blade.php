@@ -3,7 +3,7 @@
     <script src="js/product.js"></script>
     <div class="container">
         <div class="d-md-flex justify-content-md-between mb-4">
-            <h1>Sales and Inventory</h1>
+            <h1 class="header-text">Stocks</h1>
         </div>
         <form action="{{route('search_stock')}}" method="GET">
             <div class="input-group mb-2">

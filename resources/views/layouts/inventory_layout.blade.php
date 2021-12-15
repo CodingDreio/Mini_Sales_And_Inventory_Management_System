@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Prodigy Sales: Administrator</title>
+    <title>Prodigy Sales: Inventory</title>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login: Prodigy Sales</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap_5_1_3.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.scss') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -31,7 +30,7 @@
         <ul> 
             @if (Auth::user()->role == 1)
                 <li>
-                    <a href="{{ route('home') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a>
+                    <a href="{{ route('home') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Admin Dashboard</a>
                 </li>
                 <li style="border-right: 1px solid white;"></li>
             @endif

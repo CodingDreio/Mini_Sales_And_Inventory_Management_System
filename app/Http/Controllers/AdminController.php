@@ -27,8 +27,6 @@ class AdminController extends Controller
             }elseif($role == 3){
                 $url = '/inventory';
                 return view('msg.restrict_user',['url'=>$url]);
-            }else{
-                return redirect()->route('login');
             }
         }else{
             return redirect()->route('login');
@@ -50,8 +48,6 @@ class AdminController extends Controller
             }elseif($role == 3){
                 $url = '/inventory';
                 return view('msg.restrict_user',['url'=>$url]);
-            }else{
-                return redirect()->route('login');
             }
         }else{
             return redirect()->route('login');
@@ -77,8 +73,6 @@ class AdminController extends Controller
             }elseif($role == 3){
                 $url = '/inventory';
                 return view('msg.restrict_user',['url'=>$url]);
-            }else{
-                return redirect()->route('login');
             }
         }else{
             return redirect()->route('login');
@@ -104,8 +98,6 @@ class AdminController extends Controller
             }elseif($role == 3){
                 $url = '/inventory';
                 return view('msg.restrict_user',['url'=>$url]);
-            }else{
-                return redirect()->route('login');
             }
         }else{
             return redirect()->route('login');
@@ -127,8 +119,6 @@ class AdminController extends Controller
             }elseif($role == 3){
                 $url = '/inventory';
                 return view('msg.restrict_user',['url'=>$url]);
-            }else{
-                return redirect()->route('login');
             }
         }else{
             return redirect()->route('login');
@@ -155,8 +145,6 @@ class AdminController extends Controller
             }elseif($role == 3){
                 $url = '/inventory';
                 return view('msg.restrict_user',['url'=>$url]);
-            }else{
-                return redirect()->route('login');
             }
         }else{
             return redirect()->route('login');
@@ -210,8 +198,6 @@ class AdminController extends Controller
             }elseif($role == 3){
                 $url = '/inventory';
                 return view('msg.restrict_user',['url'=>$url]);
-            }else{
-                return redirect()->route('login');
             }
         }else{
             return redirect()->route('login');
@@ -275,8 +261,6 @@ class AdminController extends Controller
             }elseif($role == 3){
                 $url = '/inventory';
                 return view('msg.restrict_user',['url'=>$url]);
-            }else{
-                return redirect()->route('login');
             }
         }else{
             return redirect()->route('login');
@@ -590,8 +574,6 @@ class AdminController extends Controller
             //     }elseif($role == 3){
             //         $url = '/inventory';
             //         return view('msg.restrict_user',['url'=>$url]);
-            //     }else{
-            //         return redirect()->route('login');
             //     }
             // }else{
             //     return redirect()->route('login');
