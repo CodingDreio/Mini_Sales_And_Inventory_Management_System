@@ -62,8 +62,8 @@
                         <div class="col-sm-12 col-md-2 col-lg-2">
                         </div>
                         <div class="col-sm-12 col-md-10 col-lg-10" id="saleInfo" hidden>
-                            <h5>Date: </h5>
-                            <h5>Total Sales: </h5>
+                            <h5>Date: <strong id="dateText"></strong> </h5>
+                            <h5>Total Sales:  <strong id="totalSalesText"></strong> </h5>
                         </div>
                     </div>
                 </div>
@@ -123,6 +123,58 @@
         });
 
 
+
+
+
+        // On Change in Date
+        $(document).ready(function(){
+            $("#filterDate").on("change", function(){
+                $.ajax({
+                    type:"get",
+                    url:"/inventory_sales/date/" + $("#filterDate").val(),
+                    datatype:"json",
+                    success:function(response){
+                        $('#salesListContainer').html('');
+                        if(response.count > 0){
+                            var saleInfo = document.querySelector('#saleInfo');
+                            saleInfo.hidden = false;
+                            $('#dateText').text(response.date);
+                            $('#totalSalesText').text('₱ '+response.totalSales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+
+                            $.each(response.sales, function(key, sale){
+                                $('#salesListContainer').append('<div class="sales-row p-2 mb-2">\
+                                        <div class="d-md-flex justify-content-between">\
+                                            <div><b>Employee ID:</b> '+sale.emp_id+'</div>\
+                                            <div> <b>Date:</b> '+sale.created_at+' </div>\
+                                        </div>\
+                                        <div class="d-flex justify-content-between">\
+                                            <div> \
+                                                <p class="sales-invoice"> <b>Sales Invoice No.:</b> '+sale.sales_invoice_no+' </p>\
+                                                <p class="sales-price"> ₱ '+sale.total_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+' </p>\
+                                            </div>\
+                                            <div class="align-self-end"> \
+                                                <p class="sales-details"> <b>Cash:</b> ₱ '+sale.cash.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+' </p>\
+                                                <p class="sales-details"> <b>Change:</b> ₱ '+sale.change.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+' </p>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                ');
+                            });
+                        }else{
+                            $('#salesListContainer').append('<div class="mb-3">\
+                                    <h6 class="text-center">No sales in the given date.</h6>\
+                                </div>');
+                        }
+                    }
+                });
+            });
+        });
+
+
+
+
+
+
         // On Change in Date Range
         // From - Date
         $(document).ready(function(){
@@ -169,6 +221,11 @@
                         success:function(response){
                             $('#salesListContainer').html('');
                             if(response.count > 0){
+                                var saleInfo = document.querySelector('#saleInfo');
+                                saleInfo.hidden = false;
+                                $('#dateText').text(response.date);
+                                $('#totalSalesText').text('₱ '+response.totalSales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+
                                 $('#salesListContainer').append('<div class="mb-3">\
                                         <h6>Displaying sales <strong> <u>between</u> </strong>the given range.</h6>\
                                     </div>');
@@ -247,6 +304,11 @@
                         success:function(response){
                             $('#salesListContainer').html('');
                             if(response.count > 0){
+                                var saleInfo = document.querySelector('#saleInfo');
+                                saleInfo.hidden = false;
+                                $('#dateText').text(response.dates);
+                                $('#totalSalesText').text('₱ '+response.totalSales.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+
                                 $('#salesListContainer').append('<div class="mb-3">\
                                         <h6>Displaying sales <strong> <u>between</u> </strong>the given range.</h6>\
                                     </div>');

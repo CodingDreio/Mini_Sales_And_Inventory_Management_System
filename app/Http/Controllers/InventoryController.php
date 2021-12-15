@@ -331,7 +331,7 @@ class InventoryController extends Controller
         
         $totalSales = 0;
         $count = $sales->count();
-        $dates = $request->get('from').' to '.$request->get('to');
+        $dates = $request->get('from').'   to   '.$request->get('to');
 
         foreach($sales as $sale){
             $totalSales += $sale->total_price;
@@ -347,7 +347,25 @@ class InventoryController extends Controller
     }
     
     public function getSalesByDate($date){
+        
+        $sales = DB::table('sales_reports')
+                ->where('created_at','LIKE', $date.'%')
+                ->where('status','=','1')
+                ->get();
+        
+        $totalSales = 0;
+        $count = $sales->count();
 
+        foreach($sales as $sale){
+            $totalSales += $sale->total_price;
+        }
+
+        return response()->json([
+            'sales' => $sales,
+            'count' => $count,
+            'totalSales' => $totalSales,
+            'date' => $date,
+        ]);
     }
 
 
