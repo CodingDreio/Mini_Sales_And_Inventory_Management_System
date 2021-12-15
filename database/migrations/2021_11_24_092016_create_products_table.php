@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price',11,2);
             $table->integer('quantity');
             $table->text('product_description')->nullable();
-            $table->string('photo')->default('images/asus-rog.jpg');
+            $table->string('photo')->default('images/img-default.jpg');
             $table->integer('vat')->default(0)->comment('[1] - Applicable [0] - Not Applicable');
             $table->timestamps();
         });

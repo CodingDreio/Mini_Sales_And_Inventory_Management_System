@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-center mb-2">
                 <img src="../../images/img_default.jpg" class="edit-photo align-center" id="photo_prod">
             </div>
-            <input type="file" class="d-block mb-2 px-0 w-50 w-md-10" id="product_photo" name="product_photo" accept="image/*" onchange="document.getElementById('photo_prod').src =  '../../images/'+this.value.split('\\').pop().split('/').pop();">
+            <input type="file" class="d-block mb-2 px-0 w-50 w-md-10" id="product_photo" name="product_photo" value="../../images/img_default.jpg" accept="image/*" onchange="document.getElementById('photo_prod').src =  '../../images/'+this.value.split('\\').pop().split('/').pop();">
             <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name" value="">

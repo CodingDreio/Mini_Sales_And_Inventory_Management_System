@@ -70,7 +70,18 @@ class InventoryController extends Controller
         $quantity = $request->input('product_quantity');
         $photo = "images/".$request->input('product_photo');
         $description = $request->input('product_description');
-        DB::table('products')
+        if($request->input('product_photo') == null){
+            $photo = "images/img_default.jpg";
+            DB::table('products')
+            ->insert([
+                'product_name' => $name,
+                'code' => $code,
+                'quantity' => $quantity,
+                'price' => $price,
+                'photo' => $photo,
+                'product_description' => $description
+                ]);
+        }else DB::table('products')
         ->insert([
             'product_name' => $name,
             'code' => $code,
