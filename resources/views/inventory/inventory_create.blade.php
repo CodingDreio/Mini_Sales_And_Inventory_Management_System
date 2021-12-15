@@ -15,7 +15,7 @@
             </div>
             <div class="form-outline">
                 <label class="form-label" for="product_code">Product Code</label>
-                <input type="number" id="product_code" name="product_code" value="" class="form-control" />
+                <input type="text" id="product_code" name="product_code" value="" class="form-control" />
             </div>
             <div class="form-outline">
                 <label class="form-label" for="product_price">Price</label>
@@ -29,10 +29,10 @@
                 <label for="product_description" class="form-label">Description</label>
                 <textarea class="form-control" value="" id="product_description" name="product_description" rows="3"></textarea>
             </div>
-            <div class="d-flex justify-content-between">
-                <button class="secondary-button px-md-5 px-3" onclick="javascript:window.history.back(-1);return false;">Cancel</button>
-                <button class="primary-button px-md-5 px-3" type="submit">Submit</button>
-            </div>
+            <div class="justify-content-between">
+                <button class="secondary-button px-md-5 px-3 float-end" onclick="javascript:window.history.back(-1);return false;">Cancel</button>
+                <button class="primary-button px-md-5 px-3 me-2 float-end" type="submit">Submit</button>
+            </div><br><br><br>  
         </form>
     </div>
 @endsection

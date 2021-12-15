@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
-
 use Illuminate\Http\Request;
 use DB;
 
@@ -15,7 +15,17 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        //
+        //// Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
+
         $products = DB::select('select * from products');
         return view('inventory', ['product' => $products]);
     }
@@ -26,7 +36,17 @@ class InventoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
+        //// Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
         return view('inventory.inventory_create');
     }
 
@@ -84,6 +104,16 @@ class InventoryController extends Controller
      */
     public function edit($id)
     {
+        //// Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
         $product = DB::select('select * from products where product_id = ?',[$id]);
         //dd($product);
         return view('inventory.inventory_edit', ['product' => $product[0]]);
@@ -145,6 +175,16 @@ class InventoryController extends Controller
      */
     public function delete($id)
     {
+        //// Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
         DB::table('products')->where('product_id', '=', $id)->delete();
         return redirect()->route('inventory');
     }
@@ -170,6 +210,16 @@ class InventoryController extends Controller
 
     public function stock_index()
     {
+        //// Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
         //
         $products = DB::select('select * from products');
         return view('inventory_stocks', ['product' => $products]);
@@ -177,12 +227,32 @@ class InventoryController extends Controller
 
     public function stock_in($id)
     {
+        //// Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
         $product = DB::select('select * from products where product_id = ?',[$id]);
         return view('inventory.stock_in', ['product' => $product[0]]);
     }
 
     public function pull_out($id)
     {
+        //// Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
         $product = DB::select('select * from products where product_id = ?',[$id]);
         return view('inventory.pull_out', ['product' => $product[0]]);
     }
@@ -234,8 +304,51 @@ class InventoryController extends Controller
 
     public function sales_index()
     {
+        //// Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
         //
-        $sales= DB::select('select * from sales_reports');
+        $sales = DB::table('sales_reports')
+                    ->where('status','=','1')
+                    ->get();
         return view('inventory_viewSales', ['sales' => $sales]);
     }
+
+    public function getSalesByRange(Request $request){
+        
+        
+        $sales = DB::table('sales_reports')
+                ->whereBetween('created_at', [$request->get('from'), $request->get('to')])
+                ->where('status','=','1')
+                ->get();
+        
+        $totalSales = 0;
+        $count = $sales->count();
+        $dates = $request->get('from').' to '.$request->get('to');
+
+        foreach($sales as $sale){
+            $totalSales += $sale->total_price;
+        }
+
+
+        return response()->json([
+            'sales' => $sales,
+            'count' => $count,
+            'totalSales' => $totalSales,
+            'dates' => $dates,
+        ]);
+    }
+    
+    public function getSalesByDate($date){
+
+    }
+
+
 }

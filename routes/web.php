@@ -86,3 +86,4 @@ Route::get('/inventory/search', [InventoryController::class, 'search'])->name('i
     Route::get('/inventory/search_stock', [InventoryController::class, 'search_stock'])->name('search_stock');
     //--Inventory Sales
     Route::get('/inventory_sales', [InventoryController::class, 'sales_index'])->name('inventory_sales');
+    Route::get('/inventory_sales/date_range', [InventoryController::class, 'getSalesByRange'])->name('inventory_getSalesByRange');

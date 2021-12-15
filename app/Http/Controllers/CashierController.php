@@ -103,8 +103,8 @@ class CashierController extends Controller
     }
 
     // =========================================================================
-    // Cancel Purchase
-    // Deletes the current transaction data
+    // Remove Order
+    // Deletes the selected order
     // =========================================================================
     public function removeOrder(Request $request, $id){
         
@@ -297,6 +297,7 @@ class CashierController extends Controller
         $sales = DB::table('sales_reports')
                     ->where('emp_id','=',$id)
                     ->where('created_at','LIKE','%'.$dt->toDateString().'%')
+                    ->where('status','=','1')
                     ->get();
         foreach($sales as $sale){
             $totalAmount += $sale->total_price;
@@ -340,6 +341,7 @@ class CashierController extends Controller
     public function fetchSalesByDate($date){
         $sales = DB::table('sales_reports')
                     ->where('created_at','LIKE','%'.$date.'%')
+                    ->where('status','=','1')
                     ->get();
 
         $totalAmount = 0;

@@ -368,3 +368,11 @@ input[type="search"]:focus {
   }
 }
 /*# sourceMappingURL=style.css.map */
+
+.header-text{
+  color: #32502E;
+}
+
+.header-link{
+  text-decoration: none;
+}

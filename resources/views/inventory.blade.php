@@ -3,8 +3,8 @@
     <script src="js/product.js"></script>
     <div class="container">
         <div class="d-md-flex justify-content-md-between mb-4">
-            <h1>Sales and Inventory</h1>
-            <button type="button" class="primary-button px-5" onclick="location.href = 'inventory/create';">Add</button>
+            <h1>Products</h1>
+            <button type="button" class="primary-button px-5" onclick="location.href = 'inventory/create';"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Add</button>
         </div>
         <form action="{{route('inventory_search')}}" method="GET">
             <div class="input-group mb-2">

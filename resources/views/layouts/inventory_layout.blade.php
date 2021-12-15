@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap_5_1_3.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.scss') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    
+    <script src="{{ asset('js/v5.1.0_bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/font-awesome-all.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 </head>
 <body>
     
@@ -24,26 +28,30 @@
             <i class="fas fa-bars"></i>
         </label>
         <label class="logo"><img src="{{ asset('images/prodigy_sales_white.svg') }}" class="prodigy-sales-icon">Prodigy Sales</label>
-        <ul>
+        <ul> 
             @if (Auth::user()->role == 1)
                 <li>
-                    <a href="{{ route('home') }}">Home</a>
+                    <a href="{{ route('home') }}"><i class="fa fa-home"></i>&nbsp;&nbsp;Home</a>
                 </li>
+                <li style="border-right: 1px solid white;"></li>
             @endif
             <li>
-                <a href="{{ route('inventory') }}">Products</a>
+                <a href="{{ route('inventory') }}"><i class="fa fa-hamburger"></i>&nbsp;&nbsp;Products</a>
             </li>
+            <li style="border-right: 1px solid white;"></li>
             <li>
-                <a href="{{ route('stock') }}">Stocks</a>
+                <a href="{{ route('stock') }}"><i class="fa fa-warehouse"></i>&nbsp;&nbsp;Stocks</a>
             </li>
+            <li style="border-right: 1px solid white;"></li>
             <li>
-                <a href="{{ route('inventory_sales') }}">Sales</a>
+                <a href="{{ route('inventory_sales') }}"><i class="fa fa-chart-bar"></i>&nbsp;&nbsp;Sales</a>
             </li>
+            <li style="border-right: 1px solid white;"></li>
             <li>
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
+                    <i class="fa fa-sign-out-alt"></i>&nbsp;&nbsp;{{ __('Logout') }}
                 </a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -60,12 +68,5 @@
     <main class="py-4">
         @yield('content')
     </main>
-
-    {{-- =================================================================== --}}
-    {{-- Scripts --}}
-    {{-- =================================================================== --}}
-    <script src="{{ asset('js/v5.1.0_bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/font-awesome-all.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 </body>
 </html>

@@ -33,7 +33,7 @@
                         <div class="input-group mb-1" id="dateFilter">
                             <input type="date" class="form-control" id="filterDate" aria-label="date" aria-describedby="basic-addon1">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-filter"></i></span>
-                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-8">
                         <div class="bottom-0 end-0" id="backBtn" hidden>
