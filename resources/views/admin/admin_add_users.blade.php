@@ -4,16 +4,24 @@
         <a class="header-link" href="{{ route('admin_viewUsers') }}">
             <h2 class="header-text">
                 <i class="fa fa-users"></i>
-                &nbsp;&nbsp;Users
+                &nbsp;&nbsp;Users/Employees
             </h2>
         </a>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-light mt-3">
+            <ol class="breadcrumb pt-1 pb-1 ps-3">
+                <li class="breadcrumb-item">
+                    <a class="fs-6" style="text-decoration: none;" href="{{ route('admin_viewUsers') }}">Users/Employes</a>
+                </li>
+                <li class="breadcrumb-item fs-6 active" aria-current="page">Create New User/Employee </li>
+            </ol>
+        </nav>
         <hr>
 
         <section id="addEmployeeForm">
             <div class="card w-75 m-auto shadow-lg">
                 <div class="card-header pt-4 ps-4 pe-4">
                     <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger float-end"><i class="fa fa-times-circle"></i> </a>
-                    <h4 class="text-center header-text">Add Users</h4>
+                    <h4 class="text-center header-text">Add User</h4>
                     <h6 class="text-secondary">Fields with (<span class="text-danger">*</span>) is required.</h6>
                 </div>
                 <div class="card-body p-4">
@@ -124,8 +132,8 @@
                         </div>
                         <hr class="mt-4">
                         <div class="float-end">
-                            <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger"> Cancel </a>
                             <button type="submit" class="btn primary-btn" id="submitAdd" disabled> Submit </button>
+                            <a href="{{ route('admin_viewUsers') }}" class="btn btn-danger"> Cancel </a>
                         </div>
                     </form>
                 </div>

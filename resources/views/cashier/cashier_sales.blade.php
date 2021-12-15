@@ -1,24 +1,48 @@
 @extends('layouts.cashier_layout')
 @section('content')
     <div class="m-3">
+        <a class="header-link" href="{{ route('admin_viewUsers') }}">
+            <h2 class="header-text">
+                <i class="fa fa-chart-bar"></i>
+                &nbsp;&nbsp;Sales
+            </h2>
+        </a>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-light mt-3">
+            <ol class="breadcrumb pt-1 pb-1 ps-3">
+                <li class="breadcrumb-item">
+                    <a class="fs-6" style="text-decoration: none;" href="{{ route('cashier') }}">Home</a>
+                </li>
+                <li class="breadcrumb-item fs-6 active" aria-current="page">View Sales</li>
+            </ol>
+        </nav>
+        
+    </div>
+    <hr>
+    <div class="m-3">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
+                    
                     <div class="col-sm-12 col-md-12 col-lg-4">
                         <div class="mb-3" id="salesSummary">
                             <h5>Date :&nbsp;<strong id="salesDate">{{ $date }}</strong></h5>
-                            <h5>Total Amount :&nbsp;<strong id="totalAmount">{{ $totalAmount }}</strong></h5>
+                            <h5>Total Amount :&nbsp;<strong id="totalAmount">&#8369;&nbsp;{{ number_format($totalAmount,2) }}</strong></h5>
                             <h5>No. of Transactions :&nbsp;<strong id="numTransac">{{ $count }}</strong></h5>
                         </div>
                         <label for="dateFilter">View sales on:</label>
                         <div class="input-group mb-1" id="dateFilter">
                             <input type="date" class="form-control" id="filterDate" aria-label="date" aria-describedby="basic-addon1">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-filter"></i></span>
-                        </div>
+                            </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-8">
+                        <div class="bottom-0 end-0" id="backBtn" hidden>
+                            <a class="btn btn-success btn-sm float-end" href="{{ route('cashier') }}"><i class="fa fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
+                        </div>
                     </div>
                     <hr>
+                </div>
+                <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-4 sticky-top" id="tabContainer" hidden>
                         
                         <div class="mb-1">
@@ -31,8 +55,8 @@
                             <ul class="nav nav-tabs flex-column" id="myTab" role="tablist">
                                 @foreach ($todaySales as $sale)
                                     <li class="nav-item" role="presentation" onclick="showOrders('{{ $sale->sales_report_id }}')">
-                                        <a class="nav-link tab-link" id="{{ $sale->sales_report_id }}" data-bs-toggle="tab" href="#orderTab" role="tab" aria-controls="home" aria-selected="true">
-                                            {{ $sale->created_at.' _ '.$sale->sales_invoice_no }}
+                                        <a class="nav-link tabLink" id="{{ $sale->sales_report_id }}" data-bs-toggle="tab" href="#orderTab" role="tab" aria-controls="home" aria-selected="true">
+                                            {{ $sale->created_at.'&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;'.$sale->sales_invoice_no }}
                                         </a>
                                     </li>
                                 @endforeach
@@ -61,7 +85,6 @@
                                           <th scope="col text-center">Product</th>
                                           <th scope="col text-center">Price</th>
                                           <th scope="col text-center">Discount</th>
-                                          <th scope="col text-center">Type (&#37;,&#8369;)</th>
                                           <th scope="col text-center">Quantity</th>
                                           <th scope="col text-center">Total</th>
                                         </tr>
@@ -70,7 +93,8 @@
                                       </tbody>
                                 </table>
                             </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Prof...</div>
+                            {{-- <a class="btn btn-success btn-sm float-end" href="{{ route('cashier') }}"><i class="fa fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a> --}}
+                            
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12" id="salesTableContent">
@@ -91,15 +115,17 @@
                                     <tr onclick="clickShowOrders('{{ $sale->sales_report_id }}')">
                                         <td class="table-data">{{ $sale->created_at }}</td>
                                         <td class="table-data">{{ $sale->sales_invoice_no }}</td>
-                                        <td class="table-data">{{ $sale->vatable_sale }}</td>
-                                        <td class="table-data">{{ $sale->vat_amount }}</td>
-                                        <td class="table-data">{{ $sale->cash }}</td>
-                                        <td class="table-data">{{ $sale->change }}</td>
-                                        <td class="table-data">{{ $sale->total_price }}</td>
+                                        <td class="table-data">&#8369;&nbsp;{{ number_format($sale->vatable_sale,2) }}</td>
+                                        <td class="table-data">&#8369;&nbsp;{{ number_format($sale->vat_amount) }}</td>
+                                        <td class="table-data">&#8369;&nbsp;{{ number_format($sale->cash,2) }}</td>
+                                        <td class="table-data">&#8369;&nbsp;{{ number_format($sale->change,2) }}</td>
+                                        <td class="table-data">&#8369;&nbsp;{{ number_format($sale->total_price,2) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        <hr>
+                        <a class="btn btn-success btn-sm float-end" href="{{ route('cashier') }}"><i class="fa fa-arrow-circle-left"></i>&nbsp;&nbsp;Back</a>
                     </div>
                 </div>
             </div>
@@ -118,30 +144,44 @@
                     url:"/cashier/fetch_sales_by_date/"+$("#filterDate").val(),
                     datatype:"json",
                     success:function(response){
-                        $('#myTab').html('');
-                        $('#salesTableList').html('');
-                        $('#salesDate').text(response.date);
-                        $('#totalAmount').text(response.totalAmount);
-                        $('#numTransac').text(response.count);
-                        $.each(response.sales, function(key, sale){
-                            $('#myTab').append('<li class="nav-item" role="presentation" onclick="showOrders('+sale.sales_report_id+')">\
-                                        <a class="nav-link" id="'+sale.sales_report_id+'" data-bs-toggle="tab" href="#orderTab" role="tab" aria-controls="orders" aria-selected="true">\
-                                            '+sale.created_at+' _ '+sale.sales_invoice_no+'\
-                                        </a>\
-                                    </li>');
+                        
+                        if(response.sales.length > 0 ){
                             
-                            $('#salesTableList').append('<tr onclick="clickShowOrders('+sale.sales_report_id+')">\
-                                        <td class="table-data">'+sale.created_at+'</td>\
-                                        <td class="table-data">'+sale.sales_invoice_no+'</td>\
-                                        <td class="table-data">'+sale.vatable_sale+'</td>\
-                                        <td class="table-data">'+sale.vat_amount+'</td>\
-                                        <td class="table-data">'+sale.cash+'</td>\
-                                        <td class="table-data">'+sale.change+'</td>\
-                                        <td class="table-data">'+sale.total_price+'</td>\
-                                    </tr>');
-                        });
+                            $('#myTab').html('');
+                            $('#salesTableList').html('');
+                            $('#salesDate').text(response.date);
+                            $('#totalAmount').text(response.totalAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+                            $('#numTransac').text(response.count);
+                            $.each(response.sales, function(key, sale){
+                                $('#myTab').append('<li class="nav-item" role="presentation" onclick="showOrders('+sale.sales_report_id+')">\
+                                            <a class="nav-link tabLink" id="'+sale.sales_report_id+'" data-bs-toggle="tab" href="#orderTab" role="tab" aria-controls="orders" aria-selected="true">\
+                                                '+sale.created_at+'&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;'+sale.sales_invoice_no+'\
+                                            </a>\
+                                        </li>');
+                                
+                                $('#salesTableList').append('<tr onclick="clickShowOrders('+sale.sales_report_id+')">\
+                                            <td class="table-data">'+sale.created_at+'</td>\
+                                            <td class="table-data">'+sale.sales_invoice_no+'</td>\
+                                            <td class="table-data">&#8369;&nbsp;'+sale.vatable_sale.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+'</td>\
+                                            <td class="table-data">&#8369;&nbsp;'+sale.vat_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+'</td>\
+                                            <td class="table-data">&#8369;&nbsp;'+sale.cash.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+'</td>\
+                                            <td class="table-data">&#8369;&nbsp;'+sale.change.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+'</td>\
+                                            <td class="table-data">&#8369;&nbsp;'+sale.total_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+'</td>\
+                                        </tr>');
+                                        // x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                            });
+                        }else{
+                            
+                            $('#myTab').html('');
+                            $('#salesTableList').html('');
+                            $('#salesTableList').append('<tr>\
+                                <td class="table-data text-center" colspan="7"> No sales found!</td>\
+                            </tr>');    
 
-
+                            $('#myTab').append('<li class="text-center">\
+                                            No sales found!\
+                                        </li>');
+                        }
                         // console.log(response.sales);
                     }
                 });
@@ -160,6 +200,8 @@
             returnSalesView();
             element = document.querySelector('#salesTabContent');
             element.hidden = false;
+            // backBtn = document.querySelector('#backBtn');
+            // backBtn.hidden = false;
 
             $.ajax({
                 type:"get",
@@ -169,14 +211,15 @@
                     // console.log(response.sales);
                     // console.log(response.orders);
                     // Update Sales Info
+
                     $.each(response.sales, function(key, sale){
                         // console.log(sale.sales_invoice_no);
                         $('#salesInvoiceNo').text(sale.sales_invoice_no);
-                        $('#vatableSale').text(sale.vatable_sale);
-                        $('#vatAmount').text(sale.vat_amount);
-                        $('#totalPrice').text(sale.total_price);
-                        $('#cash').text(sale.cash);
-                        $('#change').text(sale.change);
+                        $('#vatableSale').text('₱ '+sale.vatable_sale.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+                        $('#vatAmount').text('₱ '+sale.vat_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+                        $('#totalPrice').text('₱ '+sale.total_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+                        $('#cash').text('₱ '+sale.cash.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+                        $('#change').text('₱ '+sale.change.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
                     });
 
                     // Update Orders table
@@ -184,27 +227,28 @@
                     $.each(response.orders, function(key, item){
                         var type;
                         var discount = item.discount;
+                        var disStr = '';
                         if(item.discount_type === 0){
                             type = "&#8369;";
+                            disStr = type+' '+discount;
                             // console.log(type);
                         }else if(item.discount_type === 1){
                             type = "&#37;";
+                            disStr = discount+' '+type;
                             // console.log(type);
                         }else{
                             type = "";
                             discount = ""
                             // console.log(type);
                         }
-                        
 
                         $('#ordersTableList').append(
                             '<tr>\
                                 <td class="table-data">'+item.product_name+'</td>\
-                                <td class="table-data">'+item.price+'</td>\
-                                <td class="table-data">'+discount+'</td>\
-                                <td class="table-data text-center">'+type+'</td>\
+                                <td class="table-data">₱ '+item.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+'</td>\
+                                <td class="table-data">'+disStr+'</td>\
                                 <td class="table-data text-center">'+item.quantity+'</td>\
-                                <td class="table-data">'+item.total_price+'</td>\
+                                <td class="table-data">₱ '+item.total_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+'</td>\
                             </tr>');
                     });
                 }
@@ -228,6 +272,8 @@
             // element.hidden = false;
             element = document.querySelector('#salesTableContent');
             element.hidden = false;
+            backBtn = document.querySelector('#backBtn');
+            backBtn.hidden = true;
         }
 
         function returnSalesView(){
@@ -247,6 +293,8 @@
             // element.hidden = true;
             element = document.querySelector('#salesTableContent');
             element.hidden = true;
+            backBtn = document.querySelector('#backBtn');
+            backBtn.hidden = false;
         }
     </script>
 

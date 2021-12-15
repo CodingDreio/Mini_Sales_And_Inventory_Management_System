@@ -20,12 +20,18 @@ class CashierController extends Controller
      */
     public function index(Request $request)
     {
-        $userId = Auth::id();
-
-        if($userId == null){
+        // Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
             return redirect()->route('login');
         }
         
+        // Check if session has pending transaction
         if(session()->has('si')){
             return redirect()->route('cashierNew',$request->session()->get('si'));
         }
@@ -38,13 +44,19 @@ class CashierController extends Controller
     // =========================================================================
     public function newPurchase($si)
     {   
-        $user = Auth::user();
-        $userId = Auth::id();
-
-        if($userId == null){
+        // Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
             return redirect()->route('login');
         }
 
+        $user = Auth::user();
+        
         if($si == 0){
             $userId = Auth::id();
             $count = DB::table('sales_reports')->get()->count();
@@ -75,6 +87,16 @@ class CashierController extends Controller
     // Deletes the current transaction data
     // =========================================================================
     public function cancelPurchase($id){
+
+        $orders = DB::table('orders')
+                    ->where('sales_report_id','=',$id)
+                    ->get();
+        foreach($orders as $order){
+            DB::table('products')
+                    ->where('product_id','=',$order->product_id)
+                    ->increment('quantity',$order->quantity);
+        }
+
         DB::table('sales_reports')->where('sales_report_id', '=', $id)->delete();
         session()->forget('si');
         return redirect()->route('cashier');
@@ -85,6 +107,15 @@ class CashierController extends Controller
     // Deletes the current transaction data
     // =========================================================================
     public function removeOrder(Request $request, $id){
+        
+        $orders = DB::table('orders')
+                    ->where('order_id','=',$id)
+                    ->get();
+        foreach($orders as $order){
+            DB::table('products')
+                    ->where('product_id','=',$order->product_id)
+                    ->increment('quantity',$order->quantity);
+        }
         DB::table('orders')->where('order_id', '=', $id)->delete();
         if(session()->has('si')){
             return redirect()->route('cashierNew',$request->session()->get('si'));
@@ -110,14 +141,10 @@ class CashierController extends Controller
                 $vatableAmount += $order->total_price;
             }
             $amount += $order->total_price;
-
-            DB::table('products')
-                ->where('product_id','=',$order->product_id)
-                ->decrement('quantity');
         }
         
         DB::table('sales_reports')
-            ->where('sales_report_id', $id)
+            ->where('sales_report_id', $id) 
             ->update([
                 'total_price' => $amount,
                 'cash' => $request->input('cash'),
@@ -165,6 +192,12 @@ class CashierController extends Controller
                         ->get();
             if($product->count() != 0){
                 foreach($product as $prod){
+
+
+                    DB::table('products')
+                    ->where('product_id','=',$prod->product_id)
+                    ->decrement('quantity',$request->input('quantity'));
+
                     $order = new Order;
                     $total = 0;
                     $order->sales_report_id = $id;
@@ -248,6 +281,17 @@ class CashierController extends Controller
      */
     public function viewSales($id)
     {
+        // Check if user has logged in and its role
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }
+        }else{
+            return redirect()->route('login');
+        }
+
         $dt = Carbon::now();
         $totalAmount = 0;
         $sales = DB::table('sales_reports')
@@ -311,70 +355,44 @@ class CashierController extends Controller
         ]);
     }
 
+    
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function searchProductByCode($code){
+        $products = DB::table('products')
+                    ->where('code','LIKE',''.$code.'%')
+                    ->limit(3)
+                    ->get();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $str = '';
+        if($products->count() > 0){
+            foreach($products as $prod){
+                $prodCode = $prod->code;
+                $prodQty = $prod->quantity;
+                $prodName = $prod->product_name;
+                $str .= '
+                    <div class="p-2 hover-div" id="showProduct" onclick="selectProduct('.$prod->quantity.','.$prod->code.')">
+                        <h6 class="text-secondary" hidden>Code: <strong id="productCodeText" class="text-success">'.$prodCode.'</strong> </h6>
+                        <h6 class="text-secondary">Product: <strong id="productNameText" class="text-success">'.$prodName.'</strong> </h6>
+                        <h6 class="text-secondary">Quantity: <strong id="productQuantityText" class="text-success">'.$prodQty.'</strong></h6>
+                        <input type="number" id="'.$prodCode.'qty" name="'.$prodCode.'qty" class="form-control" min="1" max="" value="'.$prodQty.'"  hidden>
+                    </div>
+                    ';
+            }
+        }else{
+            $str = '<h6 class="text-secondary text-center">No product found!</h6>';
+            return response()->json([
+                'str' => $str,
+                'status' => '105',
+                'count' => $products->count(),
+            ]);
+        }
+        
+        return response()->json([
+            'str' => $str,
+            'status' => '205',
+            'count' => $products->count(),
+        ]);
+        
     }
 }

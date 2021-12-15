@@ -24,102 +24,96 @@
         <hr>
 
         <section id="list">
+
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-8">
                     <div class="input-group mb-3">
                         <span class="input-group-text" style="background-color: #32502E;color:#ffffff;" id="basic-addon1"><i class="fa fa-sliders-h"></i>&nbsp;&nbsp;View Option:</span>
                         <select class="form-select" aria-label="Default select example" id="viewOption">
-                            <option value="1" >Table View</option>
-                            <option value="2" selected>Card View</option>
+                            <option value="1" selected>Table View</option>
+                            <option value="2">Card View</option>
                         </select>
                     </div>
                 </div>
             </div>
 
             <div>
-                <div class="row" id="userListContainer">
-                    @foreach ($users as $user)
-                        <div class="col-md-12 col-lg-4 col-sm-12 mt-4 d-flex">
-                            <div class="card flex-fill shadow-lg">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img src="{{ asset("images/".$user->photo) }}" alt="" class="employee-img" alt="Photo">
-                                    </div>
-                                    <br>
-                                    <div class="text-center">
-                                        <a href="{{ route('admin_updateUsers',['id'=>$user->id]) }}" class="empUpdateLink">
-                                            <h5>{{ $user->first_name.' '.$user->last_name }}</h5>
-                                            <h6>
-                                                @if ($user->role == 2)
-                                                    Cashier
-                                                @elseif ($user->role == 3)
-                                                    Inventory
-                                                @elseif ($user->role == 1)
-                                                    Admin
-                                                @endif
-                                            </h6>
-                                        </a>
-                                        <hr>
-                                        <div class="input-group mb-3">
-                                            <span id="phone-icon"><i class="fa fa-phone"></i></span>
-                                            <span class="ms-3" id="phone"><h6>{{ $user->phone_no }}</h6></span>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span id="email-icon"><i class="fa fa-envelope"></i></span>
-                                            <span class="ms-3" id="email"><h6>{{ $user->email }}</h6></span>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span id="address-icon"><i class="fa fa-map-marker-alt"></i></span>
-                                            <span class="ms-3" id="address">
-                                                <h6>
-                                                    {{ $user->street }},
-                                                    {{  $user->city }},
-                                                    {{  $user->province }},
-                                                    {{  $user->zip_code }}
-                                                </h6></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+                <table class="table table-striped table-hover" style="background-color: #ffffff;">
+                    <thead style="background-color: #42743c;color:#ffffff;">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone No.</th>
+                            <th scope="col">Email</th>
+                            <th scope="col" class="hidden-col">Address</th>
+                            <th scope="col" class="hidden-col-a">Role</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersList">
+                        @foreach ($users as $user)
+                                <tr onclick="updateUser({{ $user->id }})">
+                                    <td class="ps-3">
+                                        {{ $user->first_name.' '.$user->last_name }}
+                                    </td>
+                                    <td>{{ $user->phone_no }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td class="hidden-col">{{ $user->street.', '.$user->city.', '.$user->province.', '.$user->zip_code }}</td>
+                                    <td class="hidden-col-a">
+                                        @if ($user->role == 2)
+                                            Cashier
+                                        @elseif ($user->role == 3)
+                                            Inventory
+                                        @elseif ($user->role == 1)
+                                            Admin
+                                        @endif
+                                    </td>
+                                </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </section>
     </div>
 
     <script>
+        function updateUser(userId){
+            location.replace("/admin/users/update/"+userId);
+        }
+
         $(document).ready(function(){
             $("#viewOption").on("change", function(){ 
-                if($("#viewOption").val() === '1'){
-                    location.replace("/admin/users/list");
+                if($("#viewOption").val() === '2'){
+                    location.replace("/admin/users");
                 }
             });
         });
 
+
+        // Search user
         $(document).ready(function(){
             $("#searchUser").on("keyup", function(){
                 var keyword = $("#searchUser").val();
                 if(keyword==""){
                     $.ajax({
                         type:"get",
-                        url:"/admin/fetch_user",
+                        url:"/admin/fetch_user/list",
                         datatype:"json",
                         success:function(response){
-                            $('#userListContainer').html('');
-                            $('#userListContainer').append(response.str);
+                            $('#usersList').html('');
+                            $('#usersList').append(response.str);
                         }
                     });
                 }else{
                     $.ajax({
                         type:"get",
-                        url:"/admin/search_user/"+keyword,
+                        url:"/admin/search_user/list/"+keyword,
                         datatype:"json",
                         success:function(response){
                             // $.each(response.users, function(key, str){
+                            //     $('#usersList').html('');
+                            //     $('#usersList').append(response.str);
                             // });
-                            $('#userListContainer').html('');
-                            $('#userListContainer').append(response.str);
+                                $('#usersList').html('');
+                                $('#usersList').append(response.str);
                         }
                     });
                 }
@@ -127,7 +121,7 @@
             });
         });
         
-
+        // Add User Button
         var w = window.innerWidth;
         var x = document.getElementById("btn-plus-label");
         var y = document.getElementById("btn-plus");

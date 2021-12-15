@@ -19,9 +19,18 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $userId = Auth::id();
-
-        if($userId == null){
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }elseif($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }else{
+                return redirect()->route('login');
+            }
+        }else{
             return redirect()->route('login');
         }
         return view('home');
@@ -33,10 +42,18 @@ class AdminController extends Controller
 // ======================================================================================
     public function viewUsers()
     {
-        
-        $userId = Auth::id();
-
-        if($userId == null){
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }elseif($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }else{
+                return redirect()->route('login');
+            }
+        }else{
             return redirect()->route('login');
         }
         
@@ -48,11 +65,51 @@ class AdminController extends Controller
 
 
 // ======================================================================================
+//     View Users
+// ======================================================================================
+    public function viewUsersList()
+    {
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }elseif($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }else{
+                return redirect()->route('login');
+            }
+        }else{
+            return redirect()->route('login');
+        }
+        
+        $users = DB::table('users')   
+                ->get();
+        // dd($users);
+        return view('admin.admin_users_list',['users'=>$users]);
+    }
+
+
+// ======================================================================================
 //     Add Users
 // ======================================================================================
     public function addUsers()
     {
-        // dd("HEY");
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }elseif($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }else{
+                return redirect()->route('login');
+            }
+        }else{
+            return redirect()->route('login');
+        }
         return view('admin.admin_add_users');
     }
 
@@ -62,6 +119,21 @@ class AdminController extends Controller
 // ======================================================================================
     public function updateUsers($id)
     {
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }elseif($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }else{
+                return redirect()->route('login');
+            }
+        }else{
+            return redirect()->route('login');
+        }
+
         $users = DB::table('users')
                     ->where('id','=',$id)
                     ->get();
@@ -73,21 +145,35 @@ class AdminController extends Controller
 //     Store new user account to database
 // ======================================================================================
     public function storeUser(Request $request)
-    {
+    {   
+        
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }elseif($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }else{
+                return redirect()->route('login');
+            }
+        }else{
+            return redirect()->route('login');
+        }
 
         // Database query here
         $img = $request->imgInput;
         $imgName = '';
-        // dd($img);
+
         if($img == null){
             $imgName = 'default.png';
         }else{ 
             $imgName = $request->input('lname').'-'.time().'.'.$request->imgInput->extension();
-            // dd($imgName);
+            
             $request->imgInput->move(public_path('images'),$imgName);
         }
-        // dd($request->input('bdate'));
-        // dd($imgName);
+
         User::create([
             'first_name' => $request->input('fname'),
             'last_name' => $request->input('lname'),
@@ -103,9 +189,10 @@ class AdminController extends Controller
             'password' => Hash::make( $request->get('password') ),
         ]);
 
-
-        // Redirect to view users
-        return redirect()->route('admin_viewUsers');
+        $msg = "User account and information was Created Succesfully!";
+        $url = "/admin/users";
+        return view('msg.message',['message'=>$msg,'url'=>$url]);
+        // return redirect()->route('admin_viewUsers');
     }
 
 
@@ -114,6 +201,21 @@ class AdminController extends Controller
 // ======================================================================================
     public function editUser(Request $request, $id)
     {
+        
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }elseif($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }else{
+                return redirect()->route('login');
+            }
+        }else{
+            return redirect()->route('login');
+        }
         // Database query here
         // Updates password first
         $pass = $request->input('password');
@@ -151,8 +253,12 @@ class AdminController extends Controller
                 ]);
         
 
+
+        $msg = "User account and information was Updated Succesfully!";
+        $url = "/admin/users";
+        return view('msg.message',['message'=>$msg,'url'=>$url]);
         // Redirect to view users
-        return redirect()->route('admin_viewUsers');
+        // return redirect()->route('admin_viewUsers');
     }
 
 // ======================================================================================
@@ -161,14 +267,30 @@ class AdminController extends Controller
     public function removeUser($id)
     {
         
+        if(Auth::check()){
+            $role = Auth::user()->role;
+            if($role == 2){
+                $url = '/cashier';
+                return view('msg.restrict_user',['url'=>$url]);
+            }elseif($role == 3){
+                $url = '/inventory';
+                return view('msg.restrict_user',['url'=>$url]);
+            }else{
+                return redirect()->route('login');
+            }
+        }else{
+            return redirect()->route('login');
+        }
         // Database query here
         DB::table('users')
             ->where('id','=',$id)
             ->delete();
 
-        // dd("HEYYY");
+        $msg = "User account and information was Removed Succesfully!";
+        $url = "/admin/users";
+        return view('msg.message',['message'=>$msg,'url'=>$url]);
         // Redirect to view users
-        return redirect()->route('admin_viewUsers');
+        // return redirect()->route('admin_viewUsers');
     }
 
 
@@ -255,8 +377,74 @@ class AdminController extends Controller
     }
 
 
+
+    // ======================================================================================
+    //     Store new user account to database
+    // ======================================================================================
+    public function searchUsersList($keyword)
+    {
+        $key = strtolower($keyword);
+        
+        if($key == 'admin' || $key == 'cashier' || $key == 'inventory'){
+            if($key == 'admin'){
+                $key = '1';
+            }elseif($key == 'cashier'){
+                $key = '2';
+            }elseif($key == 'inventory'){
+                $key = '3';
+            }
+            $users = DB::table('users')
+                // ->where('id','!=',$id)    
+                ->where('role','=',$key)  
+                ->distinct()
+                ->get();
+        }else {
+            // $id = Auth::id();
+            $users = DB::table('users')
+                    // ->where('id','!=',$id)    
+                    ->where('first_name','LIKE','%'.$keyword.'%') 
+                    ->orWhere('last_name','LIKE','%'.$keyword.'%')   
+                    ->distinct()
+                    ->get();
+        }
+        
+        $str='';
+        
+        if($users->count() > 0){
+            foreach ($users as $user) {
+                if ($user->role == 2){
+                    $role = "Cashier";
+                }
+                elseif ($user->role == 3){
+                    $role = "Inventory";
+                }
+                elseif ($user->role == 1){
+                    $role = "Admin";
+                }
+                $url = asset("images/".$user->photo);
+    
+                $str .= '<tr onclick="updateUser('.$user->id.')">
+                <td class="ps-3">'.$user->first_name.' '.$user->last_name.'</td>
+                <td>'.$user->phone_no.'</td>
+                <td>'.$user->email.'</td>
+                <td>'.$user->street.', '.$user->city.', '.$user->province.', '.$user->zip_code.'</td>
+                <td>'.$role.'</td>
+                </tr>';
+            }
+        }else{
+            $str = '<tr>
+                <td colspan="5" class="text-center">No data found! </td>
+                </tr>';
+        }
+
+        return response()->json([
+            'users' => $users,
+            'str' => $str,
+        ]);
+    }
+
 // ======================================================================================
-//     Store new user account to database
+//     Get user account to database
 // ======================================================================================
     public function fetchUsers()
     {
@@ -319,9 +507,56 @@ class AdminController extends Controller
     }
 
 
+// ======================================================================================
+//     Get user account to database return list view
+// ======================================================================================
+    public function fetchUsersList()
+    {
+        // Database query here
+        
+        // $id = Auth::id();
+        $users = DB::table('users')
+                // ->where('id','!=',$id)    
+                ->get();
+        $str='';
+
+        if($users->count() > 0){
+            foreach ($users as $user) {
+                if ($user->role == 2){
+                    $role = "Cashier";
+                }
+                elseif ($user->role == 3){
+                    $role = "Inventory";
+                }
+                elseif ($user->role == 1){
+                    $role = "Admin";
+                }
+                $url = asset("images/".$user->photo);
+    
+                $str .= '<tr onclick="updateUser('.$user->id.')>
+                <td class="ps-3">'.$user->first_name.' '.$user->last_name.'</td>
+                <td>'.$user->phone_no.'</td>
+                <td>'.$user->email.'</td>
+                <td>'.$user->street.', '.$user->city.', '.$user->province.', '.$user->zip_code.'</td>
+                <td>'.$role.'</td>
+                </tr>';
+            }
+        }else{
+            $str .= '<tr>
+                <td rowspan="5" class="text-center">No data found! </td>
+                </tr>';
+        }
+
+        return response()->json([
+            'users' => $users,
+            'str' => $str,
+        ]);
+    }
 
 
 
+
+// Creates a new admin account 
     public function resetAdmin()
     {
         DB::table('users')->insert([
@@ -339,69 +574,27 @@ class AdminController extends Controller
         return redirect()->route('login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
+
+    // public function checkRoleAndLogin($role,$id){
+    //     if(Auth::check()){
+            //     $role = Auth::user()->role;
+            //     if($role == 2){
+            //         $url = '/cashier';
+            //         return view('msg.restrict_user',['url'=>$url]);
+            //     }elseif($role == 3){
+            //         $url = '/inventory';
+            //         return view('msg.restrict_user',['url'=>$url]);
+            //     }else{
+            //         return redirect()->route('login');
+            //     }
+            // }else{
+            //     return redirect()->route('login');
+            // }
+    // }
 }

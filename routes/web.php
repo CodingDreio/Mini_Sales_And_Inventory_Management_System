@@ -48,6 +48,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     // CRUD Routes
     Route::get('/cashier/cancel/{id}', [CashierController::class, 'cancelPurchase'])->name('cancelPurchase');
     Route::get('/cashier/remove-order/{id}', [CashierController::class, 'removeOrder'])->name('removeOrder');
+    Route::get('/cashier/search_product/{code}', [CashierController::class, 'searchProductByCode'])->name('searchProductByCode');
     Route::post('/cashier/complete/{id}', [CashierController::class, 'completePurchase'])->name('completePurchase');
     Route::post('/cashier/add_order/{id}', [CashierController::class, 'addOrder'])->name('addOrder');
     Route::get('/cashier/fetch_order/{id}', [CashierController::class, 'fetchOrder'])->name('fetchOrder');
@@ -56,9 +57,12 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
 // Admin Routes 
     Route::get('/admin/users', [AdminController::class, 'viewUsers'])->name('admin_viewUsers');
+    Route::get('/admin/users/list', [AdminController::class, 'viewUsersList'])->name('admin_viewUsersList');
     Route::get('/admin/users/add', [AdminController::class, 'addUsers'])->name('admin_addUsers');
     Route::get('/admin/fetch_user', [AdminController::class, 'fetchUsers'])->name('admin_fetchUsers');
+    Route::get('/admin/fetch_user/list', [AdminController::class, 'fetchUsersList'])->name('admin_fetchUsersList');
     Route::get('/admin/search_user/{keyword}', [AdminController::class, 'searchUsers'])->name('admin_searchUsers');
+    Route::get('/admin/search_user/list/{keyword}', [AdminController::class, 'searchUsersList'])->name('admin_searchUsersList');
     Route::get('/admin/users/update/{id}', [AdminController::class, 'updateUsers'])->name('admin_updateUsers');
     Route::post('/admin/users/store', [AdminController::class, 'storeUser'])->name('admin_storeUsers');
     Route::post('/admin/users/edit/{id}', [AdminController::class, 'editUser'])->name('admin_editUser');

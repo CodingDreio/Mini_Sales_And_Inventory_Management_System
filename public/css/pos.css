@@ -182,6 +182,27 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+.header-text{
+    color: #32502E;
+}
+
+.header-link{
+    text-decoration: none;
+}
+
+.hover-div:hover{
+  background-color: rgb(255, 247, 238);
+}
+
+.tabLink{
+  color: black;
+}
+
+.tabLink:hover{
+  color: black;
+  background-color: rgb(255, 247, 238);
+}
+
 @media screen and (max-width: 576px) {
   .list-height{
     height: 300px;

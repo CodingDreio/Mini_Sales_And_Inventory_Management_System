@@ -57,3 +57,17 @@
     color: #558a4e;
     font-size: 24pt;
 }
+
+
+
+@media screen and (max-width: 768px) {
+    .hidden-col-a{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .hidden-col{
+        display: none;
+    }
+}

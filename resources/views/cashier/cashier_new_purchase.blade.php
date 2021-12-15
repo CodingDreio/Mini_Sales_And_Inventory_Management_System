@@ -3,7 +3,7 @@
 @foreach ($transaction as $purchase)
     <div class="m-3">
         <div class="row">
-            <div class="col-sm-12 col-md-7 col-lg-7 col-height mt-3">
+            <div class="col-sm-12 col-md-7 col-lg-8 col-height mt-3">
                 <div class="card card-height">
                     <div class="card-header pt-3">
                         <div class="row">
@@ -25,12 +25,13 @@
                         </div>
                     </div>
                     <div class="card-body overflow-auto" >
-                        <h5>Orders</h5>
+                        <h4 class="header-text">Orders</h4>
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                   <th scope="col">Product</th>
                                   <th scope="col">Price</th>
+                                  <th scope="col">Discount</th>
                                   <th scope="col">Quantity</th>
                                   <th scope="col">Total</th>
                                   <th scope="col"></th>
@@ -43,47 +44,57 @@
                     </div>
                     <div class="card-footer">
                         <div>
-                            <button type="button" class="btn secondary-btn btn-sm float-start"
+                            <button type="button" class="btn secondary-btn btn-sm float-end"
                                 data-bs-toggle="modal" data-bs-target="#delModal">Cancel</button>
-                            <button class="btn primary-btn btn-sm float-end"
+                            <button class="btn primary-btn btn-sm float-end me-2"
                                 data-bs-toggle="modal" data-bs-target="#purModal">Purchace</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-5 col-lg-5 col-height mt-3">
+            <div class="col-sm-12 col-md-5 col-lg-4 col-height mt-3">
                 <div class="card card-height">
                     <div class="card-body">
                         <div id="purchaseForm" class="form-display-none">
-                            <h5>Add orders</h5>
+                            <h4 class="header-text text-center mb-3">Add item</h4>
                             {{-- <form action="" method="post">
                                 @csrf --}}
-                                <div id="errorList"></div>
-                                <div id="successNotif"></div>
-                                <input type="text" id="transId" name="transID" value="{{ $purchase->sales_report_id }}" hidden>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Product Code:</span>
-                                    <input type="text" id="code" name="code" class="form-control" placeholder="Code" aria-label="Code" aria-describedby="basic-addon1" required>
+                                <div class="mb-3" id="showProductContainer" hidden>
+                                    
                                 </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Quantity:</span>
-                                    <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="" aria-label="Quantity" aria-describedby="basic-addon1" required>
+                                <div class="">
+                                    <div id="errorList"></div>
+                                    <div id="successNotif"></div>
+                                    <input type="text" id="transId" name="transID" value="{{ $purchase->sales_report_id }}" hidden>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Product Code:</span>
+                                        <input type="text" id="code" name="code" class="form-control" placeholder="Code" aria-label="Code" aria-describedby="basic-addon1" required>
+                                    </div>
+                                    <span class="text-center text-warning" id="qtyExceedsErr" hidden>Quantity exceeds!</span>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Quantity:</span>
+                                        <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="" aria-label="Quantity" aria-describedby="basic-addon1" disabled required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Discount:</span>
+                                        <input type="number" id="discount" name="discount" class="form-control" aria-label="Discount" aria-describedby="basic-addon1">
+                                        <span class="input-group-text" id="basic-addon1">Type:</span>
+                                        <select name="type" id="type" class="form-control">
+                                            <option value="1" id="percent" selected>&#37;</option>
+                                            <option value="0" id="peso">&#8369;</option>
+                                        </select> 
+                                    </div>
+                                    <button type="button" class="btn tertiary-btn btn-sm float-end" id="clearFields">Clear</button>
+                                    <button type="button" class="btn primary-btn btn-sm float-end me-2" id="addProd">Add</button>
                                 </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Discount:</span>
-                                    <input type="number" id="discount" name="discount" class="form-control" aria-label="Discount" aria-describedby="basic-addon1">
-                                    <span class="input-group-text" id="basic-addon1">Type:</span>
-                                    <select name="type" id="type" class="form-control">
-                                        <option value="1" id="percent" selected>&#37;</option>
-                                        <option value="0" id="peso">&#8369;</option>
-                                    </select>
-                                </div>
-                                <button type="button" class="btn tertiary-btn btn-sm float-start" id="clearFields">Clear</button>
-                                <button type="button" class="btn primary-btn btn-sm float-end" id="addProd">Add</button>
+                                
                             {{-- </form> --}}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-1">
+                <p><strong>Note:</strong> You can't logout with pending transactions. Complete or cancel the purchase first.</p>
             </div>
         </div>
     </div>
@@ -146,6 +157,7 @@
 // Display orders into table
         fetchOrders();
 
+// Click
 // Clear add order fields
         $(document).ready(function(){
             $(document).on('click','#clearFields',function(e){
@@ -155,8 +167,86 @@
                 $('#type').val("");
                 $('#errorList').html('');
                 $('#errorList').removeClass('alert alert-danger');
+                var showProductContainer = document.querySelector('#showProductContainer');
+                showProductContainer.hidden = true;
             });
         });
+
+// KEYUP
+// Code input search product on KEYUP
+        $(document).ready(function (){
+            $(document).on('keyup','#code',function(){
+                var code = $('#code').val();
+                if(code === ''){
+                    var showProductContainer = document.querySelector('#showProductContainer');
+                    showProductContainer.hidden = true;
+                    $('#showProductContainer').html('');
+                }else{
+                    var sucNotif = document.querySelector('#successNotif');
+                    sucNotif.hidden = true;
+                    $.ajax({
+                        type:"get",
+                        url:"/cashier/search_product/"+code,
+                        datatype:"json",
+                        success:function(response){
+                            if(response.status == '105'){
+                                var qtyInput = document.querySelector('#quantity');
+                                qtyInput.disabled = true;
+                                var showProductContainer = document.querySelector('#showProductContainer');
+                                showProductContainer.hidden = false;
+                                $('#quantity').val('');
+                                $('#showProductContainer').html('');
+                                $('#showProductContainer').append(response.str);
+                            }else{
+                                if(response.count > 1){
+                                    var qtyInput = document.querySelector('#quantity');
+                                    qtyInput.disabled = true;
+                                }else{
+                                    var qtyInput = document.querySelector('#quantity');
+                                    qtyInput.disabled = false;
+                                }
+                                var showProductContainer = document.querySelector('#showProductContainer');
+                                showProductContainer.hidden = false;
+                                $('#showProductContainer').html('');
+                                $('#showProductContainer').append(response.str);
+                                // console.log($('#quantity3').val());
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+// Click
+// Selects the search product result
+        function selectProduct(quantity,code){
+            $('#code').val(code);
+            $.ajax({
+                type:"get",
+                url:"/cashier/search_product/"+code,
+                datatype:"json",
+                success:function(response){
+                    if(response.status == '105'){
+                        var qtyInput = document.querySelector('#quantity');
+                        qtyInput.disabled = true;
+                        var showProductContainer = document.querySelector('#showProductContainer');
+                        showProductContainer.hidden = false;
+                        $('#showProductContainer').html('');
+                        $('#showProductContainer').append(response.str);
+                    }else{
+                        var qtyInput = document.querySelector('#quantity');
+                        qtyInput.disabled = false;
+                        var showProductContainer = document.querySelector('#showProductContainer');
+                        showProductContainer.hidden = false;
+                        $('#showProductContainer').html('');
+                        $('#showProductContainer').append(response.str);
+                    }
+                    // console.log($('#quantity3').val());
+                    
+                }
+            });
+        }
+
 
 // Add product
         $(document).ready(function(){
@@ -201,17 +291,25 @@
                             $('#successNotif').addClass('alert alert-success');
                             $('#errorList').removeClass('alert alert-danger');
                             $('#successNotif').append('<p>'+response.message+'<p>');
-                            $("#successNotif").delay(3000).fadeOut(1000);
+                            // $("#successNotif").delay(3000).fadeOut(1000);
                             $('#code').val("");
                             $('#quantity').val("");
                             $('#discount').val("");
                             $('#type').val("");
+                            $('#type').val("");
+                            var showProductContainer = document.querySelector('#showProductContainer');
+                            showProductContainer.hidden = true;
+                            var sucNotif = document.querySelector('#successNotif');
+                            sucNotif.hidden = false;
+
                         }
                         fetchOrders();
                     }
                 });
             });
         });
+
+        
 
 // Cash input validation and Confirm button attribute change
         $(document).ready(function (){
@@ -247,14 +345,23 @@
                 }
             });
 
-            
+// Quantity input validation 
             $(document).on('keyup','#quantity',function(){
                 var quantity = $(this).val();
+                // var qty = $('#'+$('#code').val()+'qty').val();
+                var qty = parseInt($('#productQuantityText').text());
                 const btn = document.querySelector('#addProd');
-                if(quantity > 0){
+                var errQty = document.querySelector('#qtyExceedsErr');
+                // console.log(quantity + '   ' + qty);
+                if(quantity > 0 && quantity <= qty){
                     btn.disabled = false;
+                    errQty.hidden = true;
+                }else if(quantity > qty){
+                    errQty.hidden = false;
+                    btn.disabled = true;
                 }else{
                     $(this).val("");
+                    errQty.hidden = true;
                     btn.disabled = true;
                 }
 
@@ -274,12 +381,28 @@
                     $('#ordersTableList').html('');
                     $.each(response.orders, function(key, item){
                         // console.log(item.order_id);
+                        var discount = item.discount;
+                        var disStr = '';
+                        if(item.discount_type === 0){
+                            type = "&#8369;";
+                            disStr = type+' '+discount;
+                            // console.log(type);
+                        }else if(item.discount_type === 1){
+                            type = "&#37;";
+                            disStr = discount+' '+type;
+                            // console.log(type);
+                        }else{
+                            type = "";
+                            discount = ""
+                            // console.log(type);
+                        }
                         $('#ordersTableList').append(
                             '<tr>\
                                   <td class="table-data">'+item.product_name+'</td>\
-                                  <td class="table-data">'+item.price+'</td>\
+                                  <td class="table-data">₱ '+item.price+'</td>\
+                                  <td class="table-data text-center">'+disStr+'</td>\
                                   <td class="table-data text-center">'+item.quantity+'</td>\
-                                  <td class="table-data">'+item.total_price+'</td>\
+                                  <td class="table-data">₱ '+item.total_price+'</td>\
                                   <td class="table-data">\
                                         <div class="float-middle">\
                                             <a href="/cashier/remove-order/'+item.order_id+'" class="btn tbl-btn btn-sm"><i class="fa fa-times"></i></a>\
@@ -289,7 +412,6 @@
                         );
                         
                         $("#vatSale").text(response.vatableSale);
-                        console.log(response.vatableSale);
                         $("#vatAmount").text(response.vat);
                         $("#totalPrice").text(response.amount);
                         $("#amount").text(response.amount);
